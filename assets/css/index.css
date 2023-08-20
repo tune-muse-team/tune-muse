@@ -1,0 +1,123 @@
+/* create custom CSS variables as a primitive design system*/
+:root {
+    --dark-color: #222;
+    --light-color: #405CF5;
+    --white-color: #fff;
+}
+
+/* use a wraper to create a sticky footer
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers
+
+*/
+.wrapper {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+
+#introduction-article {
+    font-family: "Roboto", sans-serif;
+    padding: 40px;
+    text-align: center;
+    justify-content: center;
+    object-fit: fill;
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 680px;
+}
+
+#introduction-section {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 1;
+    justify-content: center;
+}
+
+#app-introduction-paragraph {
+    font-family: Roboto;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+section {
+    height: 100%
+}
+
+.page-header,
+.page-footer {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    padding: 20px;
+}
+
+
+body {
+    height: 100%;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* import and adjust css parameters from Figma developer mode */
+
+h1 {
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 42px;
+    color: var(--dark-color);
+}
+
+.new_request_button {
+    display: flex;
+    padding: 24px 0px 24px 0px;
+    align-items: flex-start;
+    background-color: var(--white-color);
+    min-width: 408px;
+    outline: none;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #DDD;
+}
+
+
+.new_request_button_content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#button_div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.new_request_button_image {
+    color: var(--dark-color);
+}
+
+.new_request_button_label {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: var(--dark-color);
+    font-family: Roboto;
+}
