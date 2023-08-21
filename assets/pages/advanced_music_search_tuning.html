@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html class="no-js" lang="en-us">
 
 <!-- head including fonts, css reset, and style links -->
 
@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="../../assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/index.css" />
     <link rel="stylesheet" type="text/css" href="../../assets/css/advanced_music_search_query.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/advanced_music_search_tuning.css" />
+
 
 </head>
 
@@ -31,11 +33,23 @@
 
                     <article id="introduction-article">
 
-                        <h1 class="client_Stimuli">In your own words...</h1>
+                        <h1 class="client_Stimuli">Do you want to add details?</h1>
 
-                        <p id="app-introduction-paragraph">How do you want music to impact you now?</p>
+                        <h2 id="app-introduction-paragraph">Style</h2>
 
-                        <input id="currentUserWish" required />
+                        <div class="chipSet">
+
+                            <div class="chip">
+                                Jane Doe
+                            </div>
+
+                            <div class="chip">
+                                Test
+                                <i class="close material-icons">close</i>
+                            </div>
+
+
+                        </div>
 
                     </article>
 
@@ -51,7 +65,7 @@
 
                 </div>
 
-                <div id="step2off">
+                <div id="step2on">
 
                 </div>
 
@@ -66,17 +80,9 @@
 
             <div class="bottomControls">
 
-                <form action="../../index.html">
+                <button class="backButton" role="button">Back</button>
 
-                    <button class="backButton" role="button">Back</button>
-
-                </form>
-
-                <form action="./advanced_music_search_tuning.html">
-
-                    <button class="nextButton" role="button">Next</button>
-
-                </form>
+                <button class="nextButton" role="button">Next</button>
 
             </div>
 
@@ -85,6 +91,15 @@
         </div>
 
     </section>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="../../assets/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/advanced_music_search_tuning.js"></script>
+    <script src="../../assets/js/vendor/jquery.js"></script>
+    <script src="../../assets/js/vendor/what-input.js"></script>
+    <script src="../../assets/js/vendor/foundation.js"></script>
+    <script src="../../assets/js/app.js"></script>
+
 
 </body>
 

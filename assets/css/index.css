@@ -1,7 +1,7 @@
 /* create custom CSS variables as a primitive design system*/
 :root {
     --dark-color: #222;
-    --light-color: #405CF5;
+    --light-color: #FF2A5F;
     --white-color: #fff;
 }
 
@@ -52,7 +52,7 @@ section {
 
 .page-header,
 .page-footer {
-    background-color: var(--dark-color);
+    background-color: var(--light-color);
     color: var(--white-color);
     padding: 20px;
 }
