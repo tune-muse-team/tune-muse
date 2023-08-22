@@ -38,7 +38,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers
     justify-content: center;
 }
 
-#app-introduction-paragraph {
+.app-introduction-paragraph {
     font-family: Roboto;
     font-size: 22px;
     font-style: normal;

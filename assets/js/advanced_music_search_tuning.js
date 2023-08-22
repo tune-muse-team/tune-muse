@@ -1,32 +1,55 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.chips');
-  var instances = M.Chips.init(elems, options);
-});
 
-// Or with jQuery
+// https://codepen.io/team/Orbis/pen/OaXreJ 
 
-$('.chips').chips();
-$('.chips-initial').chips({
-  data: [{
-    tag: 'Apple',
-  }, {
-    tag: 'Microsoft',
-  }, {
-    tag: 'Google',
-  }],
-});
-$('.chips-placeholder').chips({
-  placeholder: 'Enter a tag',
-  secondaryPlaceholder: '+Tag',
-});
-$('.chips-autocomplete').chips({
-  autocompleteOptions: {
-    data: {
-      'Apple': null,
-      'Microsoft': null,
-      'Google': null
-    },
-    limit: Infinity,
-    minLength: 1
+$(document).on(
+  "keyup",
+  ".chip.chip-checkbox, .chip.toggle, .chip.clickable",
+ 
+ 
+  function (e) {
+    if (e.which == 13 || e.which == 32) this.click();
   }
+
+  
+);
+$(document).on("click", ".chip button", function (e) {
+  e.stopPropagation();
+});
+$(document).on("click", ".chip.chip-checkbox", function () {
+  let $this = $(this);
+  let $option = $this.find("input");
+  
+  
+  if ($option.is(":radio")) {
+    let $others = $("input[name=" + $option.attr("name") + "]").not($option);
+    $others.prop("checked", false);
+    $others.change();
+  }
+  
+  $option.prop("checked", !$this.hasClass("active"));
+  $option.change();
+  console.log("true");
+});
+$(document).on("click", ".chip.toggle", function () {
+  $(this).toggleClass("active");
+});
+$(document).on("change", ".chip.chip-checkbox input", function () {
+  let $chip = $(this).parent(".chip");
+  $chip.toggleClass("active", this.checked);
+  $chip.attr("aria-checked", this.checked ? "true" : "false");
+});
+
+$("#addFilterBtn").click(function () {
+  let $txt = $("#addFilterTxt");
+  let filter = $txt.val();
+  $txt.val("");
+  $(`
+          <div class = "chip" tabindex = "-1">
+            <span>
+              ${filter}
+            </span>
+            <button title="Remove chip" aria-label="Remove chip" type = "button" onclick = "$(this).parent().remove()">
+              <i class = "material-icons">cancel</i>
+            </button>
+          </div>`).appendTo("#filterChipsContainer");
 });
