@@ -1,0 +1,392 @@
+/* create custom CSS variables as a primitive design system */
+:root {
+    --dark-color: #222;
+    --light-color: #FAF9F6;
+    --white-color: #fff;
+}
+
+/* use a wraper to create a sticky footer */
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers */
+
+#wrapper {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+#home-screen {
+    display: none;
+}
+
+#query-screen {
+    display: none;
+}
+
+#tuning-screen {
+    display: none;
+}
+
+#results-screen {
+    display: none;
+}
+
+#history-screen {
+    display: none;
+}
+
+#stepper {
+    display: none;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+}
+
+#bottom-controls {
+    display: none;
+    padding: 16px 48px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+
+#tune-muse-logo {
+    padding-bottom: 20px;
+}
+
+#page-header, #page-footer {
+    background-color: var(--light-color);
+    padding: 20px;
+}
+
+.navbar-start {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.button-icon {
+    padding-right: 7px;
+}
+
+button {
+    font-family: Roboto;
+    cursor: pointer;
+}
+
+.button {
+    font-size: 13px;
+}
+
+.introduction-article {
+    font-family: "Roboto", sans-serif;
+    padding: 40px;
+    text-align: center;
+    justify-content: center;
+    object-fit: fill;
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 680px;
+}
+
+/* Am I breaking something by activating this? */
+.introduction-section {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 1;
+    justify-content: center;
+}
+
+#app-introduction-paragraph {
+    font-family: Roboto;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+section {
+    height: 100%
+}
+
+body {
+    height: 100%;
+    font-family: Roboto;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* import and adjust css parameters from Figma developer mode */
+
+h1 {
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 42px;
+    color: var(--dark-color);
+}
+
+#new-request-button, #new-request-results-button {
+    display: flex;
+    padding: 24px 0px 24px 0px;
+    align-items: flex-start;
+    background-color: var(--white-color);
+    min-width: 408px;
+    outline: none;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #DDD;
+}
+
+.new-request-button-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.button-div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.new-request-button-image {
+    color: var(--dark-color);
+}
+
+#new-request-button-label {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: var(--dark-color);
+    font-family: Roboto;
+}
+
+.client-stimuli {
+    color: var(--dark-color);
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 54px;
+}
+
+#step1 {
+    width: 60%;
+    height: 6px;
+}
+
+#step2, #step3 {
+    width: 20%;
+    height: 6px;
+}
+
+.step-on {
+    background-color: var(--dark-color);
+}
+
+.step-off {
+    background-color: #dddddd;
+}
+
+#current-user-wish {
+    height: 1em;
+    display: flex;
+    padding: 16px 8px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid var(--dark-color);
+    background: var(--white-color);
+}
+
+#back-button {
+    color: var(--dark-color);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration-line: underline;
+    outline: none;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    background-color: var(--white-color);
+}
+
+#next-button {
+    display: flex;
+    padding: 16px 32px 16px 32px;
+    align-items: flex-start;
+    border-radius: 8px;
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    outline: none;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+h2 {
+    color: var(--dark-color);
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.chipset {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: 16px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+  
+/* https://get.foundation/building-blocks/blocks/button-like.html END */
+
+.chip-group{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.chip.chip-checkbox > .chip-add-icon::after {
+    content:"add"
+}
+
+.chip.chip-checkbox.active > .chip-add-icon::after {
+    content:"done"
+}
+
+.chip > * {
+    margin-right:2px;
+    margin-left:2px;
+    color: #757373;
+}
+
+.chip input {
+    display: none;
+}
+
+.chip.chip-checkbox, .chip.chip-toggle, .chip.clickable {
+    cursor: pointer;
+}
+
+.chip.active {
+    background-color: #dedcdc;
+    border-color:#c3c2c2;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12)
+}
+
+.chip:hover, .chip:focus {
+    background-color: #e3e2e2;
+}
+
+.chip:active:focus{
+    background-color: #d3d2d2;  
+}
+
+.chip button{
+    border:none;
+    margin-top:0;
+    margin-bottom:0;
+    padding:0;
+    background:none;
+    display:inline-flex;
+}
+
+.chip {
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    border-radius: 30px;
+    border: 1px solid #d3d2d2;
+    display: inline-flex;
+    align-items:center;
+    padding: 4px 6px 4px 6px;
+    margin-right:6px;
+    margin-bottom:6px;
+}
+
+.chip i.material-icons {
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#copyright {
+    padding-left: 10px;
+}
+
+#copyright p {
+    color: var(--dark-color);
+}
+
+#result-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+}
+
+#result-image-area {
+    border-radius: 16px;
+    display: flex;
+    width: 186.66px;
+    height: 186.66px;
+    max-width: 186.66px;
+    max-height: 186.66px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+#search-result-image {
+    width: 186.66px;
+    height: 248.88px;
+    flex-shrink: 0;
+}
+
+#result-text-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+#result-logo-area {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+#result-content-area{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}
