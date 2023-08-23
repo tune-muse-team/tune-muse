@@ -1,8 +1,6 @@
 // TODO: Figure out what information needs to be stored in localStorage (for info on discovered songs and info on the current request as the user goes back and forth between different screens)
 
 // Store button elements in variables
-// TODO: Replace element names with the ones in HTML file
-// TODO: Check if other buttons will be used and for what
 var tuneMuseLogoButton = document.getElementById("tune-muse-logo");
 var songsDiscoveredButton = document.getElementById("songs-discovered-button");
 var discoverButton = document.getElementById("discover-button");
@@ -12,7 +10,6 @@ var nextButton = document.getElementById("next-button");
 var newRequestResultsButton = document.getElementById("new-request-results-button");
 
 // Store elements for each different screen
-// TODO: Replace element names with the ones in HTML file
 var homeEl = document.getElementById("home-screen");
 var queryEl = document.getElementById("query-screen");
 var tuningEl = document.getElementById("tuning-screen");
@@ -21,12 +18,10 @@ var historyEl = document.getElementById("history-screen");
 var stepperEl = document.getElementById("stepper");
 var bottomControlsEl = document.getElementById("bottom-controls");
 
-// TODO: Declare other global variables
+// Declare other global variables
 var discoveredHistory = [];
 
 // Switch between each different screen
-// TODO: Replace display types with the ones in HTML file
-
 function populateHistoryScreen() {
   // TODO: Populate Home screen with discovered songs, adding a div for each song
 }
@@ -36,7 +31,6 @@ function populateResultsScreen() {
 }
 
 function displayHomeScreen() {
-  console.log("Displaying Home screen...");
   homeEl.style.display = "block";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
@@ -47,7 +41,6 @@ function displayHomeScreen() {
 }
 
 function displayHistoryScreen() {
-  console.log("Displaying History screen...");
   populateHistoryScreen();
   homeEl.style.display = "none";
   historyEl.style.display = "block";
@@ -59,7 +52,6 @@ function displayHistoryScreen() {
 }
 
 function goHome() {
-  // TODO: Add if statement checking localStorage for history. If yes, displayHistoryScreen. If not, displayHomeScreen
   if (localStorage.hasOwnProperty("discovered-history")) {
     discoveredHistory = localStorage.getItem("discovered-history").split(",");
     displayHistoryScreen();
@@ -69,7 +61,7 @@ function goHome() {
 }
 
 function displayQueryScreen() {
-  console.log("Displaying Query screen...");
+  document.getElementById("step2").className = "step-off";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "block";
@@ -80,7 +72,7 @@ function displayQueryScreen() {
 }
 
 function displayTuningScreen() {
-  console.log("Displaying Tuning screen...");
+  document.getElementById("step2").className = "step-on";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
@@ -91,7 +83,6 @@ function displayTuningScreen() {
 }
 
 function displayResultsScreen() {
-  console.log("Displaying Results screen...");
   populateResultsScreen();
   homeEl.style.display = "none";
   historyEl.style.display = "none";
@@ -128,8 +119,6 @@ function nextButtonCheck() {
     submitSelectedAttributes();
   }
 }
-
-goHome();
 
 // https://codepen.io/team/Orbis/pen/OaXreJ 
 
@@ -186,7 +175,8 @@ $("#addFilterBtn").click(function () {
           </div>`).appendTo("#filterChipsContainer");
 });
 
-// TODO: Add event listeners to buttons
+goHome();
+
 tuneMuseLogoButton.addEventListener("click", goHome);
 songsDiscoveredButton.addEventListener("click", displayHistoryScreen);
 discoverButton.addEventListener("click", displayQueryScreen);
