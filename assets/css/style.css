@@ -70,13 +70,14 @@
 
 button {
     font-family: Roboto;
+    cursor: pointer;
 }
 
 .button {
     font-size: 13px;
 }
 
-#introduction-article {
+.introduction-article {
     font-family: "Roboto", sans-serif;
     padding: 40px;
     text-align: center;
@@ -90,7 +91,8 @@ button {
     max-width: 680px;
 }
 
-#introduction-section {
+/* Am I breaking something by activating this? */
+.introduction-section {
     display: flex;
     flex-direction: row;
     flex: 1 0 1;
@@ -130,7 +132,7 @@ h1 {
     color: var(--dark-color);
 }
 
-#new-request-button {
+#new-request-button, #new-request-results-button {
     display: flex;
     padding: 24px 0px 24px 0px;
     align-items: flex-start;
@@ -144,13 +146,13 @@ h1 {
     border-bottom: 1px solid #DDD;
 }
 
-#new-request-button-content {
+.new-request-button-content {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-#button-div {
+.button-div {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -265,11 +267,7 @@ h2 {
   
 /* https://get.foundation/building-blocks/blocks/button-like.html END */
 
-button {
-    cursor:pointer;
-}
-
-.chip-group {
+.chip-group{
     display:flex;
     flex-wrap:wrap;
 }
@@ -297,7 +295,7 @@ button {
 }
 
 .chip.active {
-    background-color: #d3d2d2;
+    background-color: #dedcdc;
     border-color:#c3c2c2;
     box-shadow: 0 1px 1px rgba(0,0,0,0.12)
 }
@@ -306,11 +304,11 @@ button {
     background-color: #e3e2e2;
 }
 
-.chip:active:focus {
+.chip:active:focus{
     background-color: #d3d2d2;  
 }
 
-.chip button {
+.chip button{
     border:none;
     margin-top:0;
     margin-bottom:0;
@@ -345,3 +343,50 @@ button {
     color: var(--dark-color);
 }
 
+#result-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+}
+
+#result-image-area {
+    border-radius: 16px;
+    display: flex;
+    width: 186.66px;
+    height: 186.66px;
+    max-width: 186.66px;
+    max-height: 186.66px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+#search-result-image {
+    width: 186.66px;
+    height: 248.88px;
+    flex-shrink: 0;
+}
+
+#result-text-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+#result-logo-area {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+#result-content-area{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}

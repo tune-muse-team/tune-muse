@@ -9,7 +9,7 @@ var discoverButton = document.getElementById("discover-button");
 var newRequestButton = document.getElementById("new-request-button");
 var backButton = document.getElementById("back-button");
 var nextButton = document.getElementById("next-button");
-// var newRequestResultsButton = document.getElementById("new-request-results-button");
+var newRequestResultsButton = document.getElementById("new-request-results-button");
 
 // Store elements for each different screen
 // TODO: Replace element names with the ones in HTML file
@@ -131,6 +131,61 @@ function nextButtonCheck() {
 
 goHome();
 
+// https://codepen.io/team/Orbis/pen/OaXreJ 
+
+$(document).on(
+  "keyup",
+  ".chip.chip-checkbox, .chip.toggle, .chip.clickable",
+ 
+  function (e) {
+    if (e.which == 13 || e.which == 32) this.click();
+  }
+);
+
+$(document).on("click", ".chip button", function (e) {
+  e.stopPropagation();
+});
+
+$(document).on("click", ".chip.chip-checkbox", function () {
+  let $this = $(this);
+  let $option = $this.find("input");
+ 
+if ($option.is(":radio")) {
+  let $others = $("input[name=" + $option.attr("name") + "]").not($option);
+  $others.prop("checked", false);
+  $others.change();
+}
+  
+  $option.prop("checked", !$this.hasClass("active"));
+  $option.change();
+  console.log("true");
+});
+
+$(document).on("click", ".chip.toggle", function () {
+  $(this).toggleClass("active");
+});
+
+$(document).on("change", ".chip.chip-checkbox input", function () {
+  let $chip = $(this).parent(".chip");
+  $chip.toggleClass("active", this.checked);
+  $chip.attr("aria-checked", this.checked ? "true" : "false");
+});
+
+$("#addFilterBtn").click(function () {
+  let $txt = $("#addFilterTxt");
+  let filter = $txt.val();
+  $txt.val("");
+  $(`
+          <div class = "chip" tabindex = "-1">
+            <span>
+              ${filter}
+            </span>
+            <button title="Remove chip" aria-label="Remove chip" type = "button" onclick = "$(this).parent().remove()">
+              <i class = "material-icons">cancel</i>
+            </button>
+          </div>`).appendTo("#filterChipsContainer");
+});
+
 // TODO: Add event listeners to buttons
 tuneMuseLogoButton.addEventListener("click", goHome);
 songsDiscoveredButton.addEventListener("click", displayHistoryScreen);
@@ -138,4 +193,4 @@ discoverButton.addEventListener("click", displayQueryScreen);
 newRequestButton.addEventListener("click", displayQueryScreen);
 backButton.addEventListener("click", backButtonCheck);
 nextButton.addEventListener("click", nextButtonCheck);
-// newRequestResultsButton.addEventListener("click", displayQueryScreen);
+newRequestResultsButton.addEventListener("click", displayQueryScreen);
