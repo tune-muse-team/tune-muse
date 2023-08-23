@@ -1,0 +1,49 @@
+#resultCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+}
+
+#resultImageArea {
+    border-radius: 16px;
+    display: flex;
+    width: 186.66px;
+    height: 186.66px;
+    max-width: 186.66px;
+    max-height: 186.66px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+#searchResultImage {
+    width: 186.66px;
+    height: 248.88px;
+    flex-shrink: 0;
+}
+
+#resultTextArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+#resultLogoArea {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+#resultContentArea{
+
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+align-self: stretch;
+
+}
