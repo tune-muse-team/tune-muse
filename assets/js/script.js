@@ -184,3 +184,8 @@ newRequestButton.addEventListener("click", displayQueryScreen);
 backButton.addEventListener("click", backButtonCheck);
 nextButton.addEventListener("click", nextButtonCheck);
 newRequestResultsButton.addEventListener("click", displayQueryScreen);
+
+
+
+
+
