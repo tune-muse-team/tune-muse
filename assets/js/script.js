@@ -21,7 +21,19 @@ var bottomControlsEl = document.getElementById("bottom-controls");
 // Declare other global variables
 var discoveredHistory = [];
 var userQuery = "";
+var suggestedArtist = "";
+var suggestedSong = "";
 var chatgptApiQuery = "Provide a single song title and artist with no further comments ; the user cue is : ";
+var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
+var AK1 = "sk-Sco";
+var AK2 = "ZaL";
+var AK3 = "TQMx";
+var AK4 = "kjSb2";
+var AK5 = "CB9oNT3Blbk";
+var AK6 = "FJANRiYPnFM9i";
+var AK7 = "djpvjZsoj";
+var spotifyCliId = "95dac2ec667f4f81b55f7a7ffe19070f"; 
+var spotifyCliSecId = "1ac2264050d94b0ca2b1367722c36ef1"; 
 
 // Switch between each different screen
 function populateHistoryScreen() {
@@ -95,13 +107,87 @@ function displayResultsScreen() {
   bottomControlsEl.style.display = "none";
 }
 
+var pullSpotifyData = async () => {
+      console.log("Artist:", suggestedArtist);
+      console.log("Song:", suggestedSong);
+      var SearchRes = await fetch("https://api.spotify.com/v1/search?q=" + suggestedArtist + "+track:" + suggestedSong + "&type=track", {
+        headers: {
+          "Authorization": "Bearer" + AccessToken
+        }});
+      // The following code gets permission (access Key to connect to spotify)
+      var Token = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": "Basic" + btoa(spotifyCliId + ":" + spotifyCliSecId)},
+        body: "grant_type=client_credentials"
+        });
+      var resultImage = document.getElementById("search-result-image");
+      var resultTitle = document.getElementById("search-result-title");
+      var resultArtist = document.getElementById("search-result-artist");
+      var resultAlbum = document.getElementById("search-result-album");
+      // TODO: add line resultImage.src = [Spotify API generated image]
+      resultTitle.innerHTML = songdisplay.name;
+      resultArtist.innerHTML = songdisplay.artists.map(artist => artist.name).join(", ");
+      // TODO: add line resultAlbum.innerHTML = [Spotify API generated album name]
+      // TODO: add play button (iframe?)
+      // Variables for access to the spotify API 
+      var songdisplay = songs[0];
+      var TokINFO = await Token.json();
+      var AccessToken = TokINFO.access_token;      
+      var search = await SearchRes.json();
+      var songs = search.tracks.items;
+};
+
+// https://www.builder.io/blog/stream-ai-javascript
+
+var generateSongSuggestion = async () => {
+
+  try {
+    
+    const response = await fetch(chatgptApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + AK1 + AK2 + AK3 + AK4 + AK5 + AK6 + AK7,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [{"role": "user", "content": chatgptApiQuery}],
+        temperature: 1
+      }),
+    });
+    const data = await response.json();
+    var queryResponse = data.choices[0].message.content;
+    var parsingSong = true;
+    for (i = 1; i < queryResponse.length; i++) {
+      if (parsingSong) {
+        if (queryResponse[i] !== '"') {
+          suggestedSong += queryResponse[i];
+        } else {
+          i += 4;
+          parsingSong = false;
+        }
+      } else {
+        suggestedArtist += queryResponse[i];
+      }
+    }
+    // console.log(data.choices[0].message.content);
+    console.log("Artist:", suggestedArtist);
+    console.log("Song:", suggestedSong);
+  } catch (error) {
+    console.error("Error:", error);
+    console.log("Error occurred while generating.");
+  }
+  pullSpotifyData();
+};
+
+
 function submitQuery() {
   userQuery = document.getElementById("current-user-wish").value;
   if (userQuery === "") {
-    console.log("Query is blank!");
     document.getElementById("query-error").style.display = "block";
   } else {
-    // TODO: Incorporate ChatGPT query into API query string
     chatgptApiQuery += userQuery + " ; the song must match the following styles : ";
     displayTuningScreen();
   }
@@ -134,6 +220,7 @@ function submitSelectedAttributes() {
   }
   chatgptApiQuery += ".";
   console.log(chatgptApiQuery);
+  generateSongSuggestion();
   displayResultsScreen();
 }
 
