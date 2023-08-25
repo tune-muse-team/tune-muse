@@ -1,12 +1,11 @@
-/* create custom CSS variables as a primitive design system */
+/* Create custom CSS variables as a primitive design system */
 :root {
     --dark-color: #222;
     --light-color: #FAF9F6;
     --white-color: #fff;
 }
 
-/* use a wraper to create a sticky footer */
-
+/* Use a wraper to create a sticky footer */
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers */
 
 #wrapper {
@@ -91,7 +90,6 @@ button {
     max-width: 680px;
 }
 
-/* Am I breaking something by activating this? */
 .introduction-section {
     display: flex;
     flex-direction: row;
@@ -105,6 +103,15 @@ button {
     font-style: normal;
     font-weight: 600;
     line-height: 26px;
+}
+
+#query-error {
+    font-family: Roboto;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px;
+    display: none;
 }
 
 section {
@@ -121,7 +128,7 @@ html {
     box-sizing: border-box;
 }
 
-/* import and adjust css parameters from Figma developer mode */
+/* Import and adjust CSS parameters from Figma developer mode */
 
 h1 {
     font-family: Roboto;

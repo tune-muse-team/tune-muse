@@ -20,6 +20,8 @@ var bottomControlsEl = document.getElementById("bottom-controls");
 
 // Declare other global variables
 var discoveredHistory = [];
+var userQuery = "";
+var chatgptApiQuery = "Provide a single song title and artist with no further comments ; the user cue is : ";
 
 // Switch between each different screen
 function populateHistoryScreen() {
@@ -94,16 +96,48 @@ function displayResultsScreen() {
 }
 
 function submitQuery() {
-  // TODO: Replace form element name with the one in HTML file
-  // TODO: Submit query to ChatGPt API
-  displayTuningScreen();
+  userQuery = document.getElementById("current-user-wish").value;
+  if (userQuery === "") {
+    console.log("Query is blank!");
+    document.getElementById("query-error").style.display = "block";
+  } else {
+    // TODO: Incorporate ChatGPT query into API query string
+    chatgptApiQuery += userQuery + " ; the song must match the following styles : ";
+    displayTuningScreen();
+  }
 }
 
 function submitSelectedAttributes() {
   // TODO: Figure out how attributes will be selected and submitted
+  var checkedStyles = document.getElementsByClassName("music-style active");
+  for (i = 0; i < checkedStyles.length; i++) {
+    chatgptApiQuery += checkedStyles[i].children[2].innerHTML;
+    if (i !== checkedStyles.length - 1) {
+      chatgptApiQuery += ", ";
+    }
+  }
+  chatgptApiQuery += " ; the song must match the following moods : ";
+  var checkedMoods = document.getElementsByClassName("music-mood active");
+  for (i = 0; i < checkedMoods.length; i++) {
+    chatgptApiQuery += checkedMoods[i].children[2].innerHTML;
+    if (i !== checkedMoods.length - 1) {
+      chatgptApiQuery += ", ";
+    }
+  }
+  chatgptApiQuery += " ; the song must match the following themes : ";
+  var checkedThemes = document.getElementsByClassName("music-theme active");
+  for (i = 0; i < checkedThemes.length; i++) {
+    chatgptApiQuery += checkedThemes[i].children[2].innerHTML;
+    if (i !== checkedThemes.length - 1) {
+      chatgptApiQuery += ", ";
+    }
+  }
+  chatgptApiQuery += ".";
+  console.log(chatgptApiQuery);
   displayResultsScreen();
 }
 
+// Checks current active screen and directs user to the correct pages
 function backButtonCheck() {
   if (queryEl.style.display === "block") {
     displayHomeScreen();
@@ -160,6 +194,7 @@ $(document).on("change", ".chip.chip-checkbox input", function () {
   $chip.attr("aria-checked", this.checked ? "true" : "false");
 });
 
+/*
 $("#addFilterBtn").click(function () {
   let $txt = $("#addFilterTxt");
   let filter = $txt.val();
@@ -174,6 +209,7 @@ $("#addFilterBtn").click(function () {
             </button>
           </div>`).appendTo("#filterChipsContainer");
 });
+*/
 
 goHome();
 
