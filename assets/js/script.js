@@ -19,11 +19,19 @@ var stepperEl = document.getElementById("stepper");
 var bottomControlsEl = document.getElementById("bottom-controls");
 
 // Declare other global variables
-var discoveredHistory = [];
+var discoveredSongHistory = [];
+var discoveredArtistHistory = [];
+var discoveredAlbumHistory = [];
+var discoveredCoverHistory = [];
+var resultImage;
+var resultTitle;
+var resultArtist;
+var resultAlbum;
 var userQuery = "";
 var suggestedArtist = "";
 var suggestedSong = "";
-var chatgptApiQuery = "Provide a single song title and artist with no further comments ; the user cue is : ";
+// var chatgptApiQuery = "Provide a single song name title and artist with no further comments ; the user cue is : ";
+var chatgptApiQuery = 'Provide a song in the format "SONG NAME" by ARTIST NAME ; the user cue is : ';
 var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
 var AK1 = "sk-Sco";
 var AK2 = "ZaL";
@@ -32,16 +40,28 @@ var AK4 = "kjSb2";
 var AK5 = "CB9oNT3Blbk";
 var AK6 = "FJANRiYPnFM9i";
 var AK7 = "djpvjZsoj";
-var spotifyCliId = "95dac2ec667f4f81b55f7a7ffe19070f"; 
-var spotifyCliSecId = "1ac2264050d94b0ca2b1367722c36ef1"; 
+var spotifyCliId = "3726bd533631461898be92f9cc7dd798"; 
+var spotifyCliSecId = "1afad6d3393e4a30b1e66be71094c41f"; 
+
+function getLocalStorage() {
+  if (localStorage.hasOwnProperty("discovered-songs")) {
+    discoveredSongHistory = localStorage.getItem("discovered-songs").split(",");
+    discoveredArtistHistory = localStorage.getItem("discovered-artists").split(",");
+    discoveredAlbumHistory = localStorage.getItem("discovered-albums").split(",");
+    discoveredCoverHistory = localStorage.getItem("discovered-covers").split(",");  
+  }
+}
 
 // Switch between each different screen
 function populateHistoryScreen() {
-  // TODO: Populate Home screen with discovered songs, adding a div for each song
-}
-
-function populateResultsScreen() {
-  // TODO: Populate Results screen with query result (add values to relevant elements)
+  var newHistoryItem;
+  getLocalStorage();
+  document.getElementById("history-list").innerHTML = "";
+  for (i = 0; i < discoveredSongHistory.length; i++) {
+    newHistoryItem = document.createElement("div");
+    newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div>';
+    document.getElementById("history-list").appendChild(newHistoryItem);
+  }
 }
 
 function displayHomeScreen() {
@@ -66,8 +86,7 @@ function displayHistoryScreen() {
 }
 
 function goHome() {
-  if (localStorage.hasOwnProperty("discovered-history")) {
-    discoveredHistory = localStorage.getItem("discovered-history").split(",");
+  if (localStorage.hasOwnProperty("discovered-songs")) {
     displayHistoryScreen();
   } else {
     displayHomeScreen();
@@ -97,7 +116,6 @@ function displayTuningScreen() {
 }
 
 function displayResultsScreen() {
-  populateResultsScreen();
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
@@ -107,37 +125,72 @@ function displayResultsScreen() {
   bottomControlsEl.style.display = "none";
 }
 
+function updateDiscoveredHistory() {
+  getLocalStorage();
+  discoveredSongHistory.push(resultTitle);
+  discoveredArtistHistory.push(resultArtist);
+  discoveredAlbumHistory.push(resultAlbum);
+  discoveredCoverHistory.push(resultImage);
+  localStorage.setItem("discovered-songs", discoveredSongHistory);
+  localStorage.setItem("discovered-artists", discoveredArtistHistory);
+  localStorage.setItem("discovered-albums", discoveredAlbumHistory);
+  localStorage.setItem("discovered-covers", discoveredCoverHistory);
+}
+
+/*
 var pullSpotifyData = async () => {
-      console.log("Artist:", suggestedArtist);
-      console.log("Song:", suggestedSong);
       var SearchRes = await fetch("https://api.spotify.com/v1/search?q=" + suggestedArtist + "+track:" + suggestedSong + "&type=track", {
+        method: "GET",
         headers: {
-          "Authorization": "Bearer" + AccessToken
+          "Authorization": "Bearer " + AccessToken
         }});
       // The following code gets permission (access Key to connect to spotify)
       var Token = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "Authorization": "Basic" + btoa(spotifyCliId + ":" + spotifyCliSecId)},
+          "Authorization": "Basic " + btoa(spotifyCliId + ":" + spotifyCliSecId)},
         body: "grant_type=client_credentials"
         });
-      var resultImage = document.getElementById("search-result-image");
-      var resultTitle = document.getElementById("search-result-title");
-      var resultArtist = document.getElementById("search-result-artist");
-      var resultAlbum = document.getElementById("search-result-album");
-      // TODO: add line resultImage.src = [Spotify API generated image]
-      resultTitle.innerHTML = songdisplay.name;
-      resultArtist.innerHTML = songdisplay.artists.map(artist => artist.name).join(", ");
-      // TODO: add line resultAlbum.innerHTML = [Spotify API generated album name]
-      // TODO: add play button (iframe?)
-      // Variables for access to the spotify API 
-      var songdisplay = songs[0];
+      console.log("Artist:", suggestedArtist);
+      console.log("Song:", suggestedSong);
+      // Variables for access to the spotify API
       var TokINFO = await Token.json();
-      var AccessToken = TokINFO.access_token;      
+      var AccessToken = TokINFO.access_token;
+      console.log(AccessToken);
       var search = await SearchRes.json();
       var songs = search.tracks.items;
+      var songdisplay = songs[0];
+      // console.log(songs);
+      resultImageEl = document.getElementById("search-result-image");
+      resultTitleEl = document.getElementById("search-result-title");
+      resultArtistEl = document.getElementById("search-result-artist");
+      resultAlbumEl = document.getElementById("search-result-album");
+      // TODO: add line resultImageEl.src = [Spotify API generated image]
+      resultTitleEl.innerHTML = songdisplay.name;
+      resultArtistEl.innerHTML = songdisplay.artists.map(artist => artist.name).join(", ");
+      // TODO: add line resultAlbumEl.innerHTML = [Spotify API generated album name]
+      // TODO: add play button (iframe?)
+      updateDiscoveredHistory();
 };
+*/
+
+// TODO: Remove this function and replace with the one above when you get it to work
+function pullSpotifyData() {
+  resultImage = "./assets/images/searchResultImage.jpeg";
+  resultTitle = suggestedSong;
+  resultArtist = suggestedArtist;
+  resultAlbum = "Test Album";
+  resultImageEl = document.getElementById("search-result-image");
+  resultTitleEl = document.getElementById("search-result-title");
+  resultArtistEl = document.getElementById("search-result-artist");
+  resultAlbumEl = document.getElementById("search-result-album");
+  resultImageEl.src = resultImage;
+  resultTitleEl.innerHTML = resultTitle;
+  resultArtistEl.innerHTML = resultArtist;
+  resultAlbumEl.innerHTML = resultAlbum;
+  updateDiscoveredHistory();
+}
 
 // https://www.builder.io/blog/stream-ai-javascript
 
@@ -172,9 +225,7 @@ var generateSongSuggestion = async () => {
         suggestedArtist += queryResponse[i];
       }
     }
-    // console.log(data.choices[0].message.content);
-    console.log("Artist:", suggestedArtist);
-    console.log("Song:", suggestedSong);
+    console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
   } catch (error) {
     console.error("Error:", error);
     console.log("Error occurred while generating.");
@@ -194,7 +245,6 @@ function submitQuery() {
 }
 
 function submitSelectedAttributes() {
-  // TODO: Figure out how attributes will be selected and submitted
   var checkedStyles = document.getElementsByClassName("music-style active");
   for (i = 0; i < checkedStyles.length; i++) {
     chatgptApiQuery += checkedStyles[i].children[2].innerHTML;
@@ -219,7 +269,7 @@ function submitSelectedAttributes() {
     }
   }
   chatgptApiQuery += ".";
-  console.log(chatgptApiQuery);
+  console.log("USER QUERY:", chatgptApiQuery);
   generateSongSuggestion();
   displayResultsScreen();
 }

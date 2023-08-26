@@ -71,7 +71,12 @@
         </section>
         <!--Container to hold history of songs discovered which is search history of songs given in search wizard-->
         <section id="history-screen"> 
-        <!--Add history screen content here-->
+            <section class="introduction-section">
+                <article id="history-list" class="introduction-article">
+                    <h1>Here are your past inspirations</h1>
+                    <div id="history-end"></div>
+                </article>
+            </section>
         </section>
         <section id="query-screen">
             <section class="introduction-section">
@@ -79,7 +84,6 @@
                     <h1 class="client-stimuli">In your own words...</h1>
                     <p id="app-introduction-paragraph">How do you want music to impact you now?</p>
                     <input id="current-user-wish" required />
-                    <!-- TODO: Create p element that displays an error message is field is left blank -->
                     <p id="query-error">Please enter a valid query.</p>
                 </article>
             </section>
