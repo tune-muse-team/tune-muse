@@ -96,6 +96,9 @@ function displayResultsScreen() {
 }
 
 function submitQuery() {
+  var songname = document.getElementById("song-name");
+  var songpicture =document.getElementById("search-result-image");
+  var artistname =document.getElementById("Artist-name");
   userQuery = document.getElementById("current-user-wish").value;
   if (userQuery === "") {
     console.log("Query is blank!");
@@ -105,6 +108,10 @@ function submitQuery() {
     chatgptApiQuery += userQuery + " ; the song must match the following styles : ";
     displayTuningScreen();
   }
+
+  localStorage.setItem('name', songname);
+  localStorage.setItem('artist',artistname);
+  localStorage.setItem('image',songimage);
 }
 
 function submitSelectedAttributes() {
