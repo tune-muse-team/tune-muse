@@ -1,0 +1,555 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="'en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <link rel="stylesheet" href="./assets/css/reset.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Merriweather&family=REM:ital,wght@0,100;0,200;1,100&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
+        <title>Tune-Muse</title>
+        <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"
+      ></script>
+    </head>
+    <body>
+        <div id="wrapper">
+        <!--Navbar to hold logo and button to change views between Search History and Search Wizard-->
+        <nav id="page-header" class="navbar" role="navigation" aria-label="main navigation">
+            <div>
+                <a>
+                    <img id="tune-muse-logo" src="./assets/images/Logo_Tune-Muse.png" width="200">
+                </a>
+                <!-- What does the following element do?-->
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <!-- Buttons to switch between both options-->
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="navbar-item">
+                        <div class="buttons has-addons">
+                            <button id="songs-discovered-button" class="button is-rounded"><i class="material-icons button-icon">star</i>Songs Discovered</button>
+                            <button id="discover-button" class="button is-rounded"><i class="material-icons button-icon">search</i>Discover New Songs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section id="home-screen" class="page-body">
+            <section class="introduction-section">
+                <article class="introduction-article">
+                    <h1>Welcome to Tune Muse</h1>
+                    <p id="app-introduction-paragraph">An advanced music search engine</p>
+                        <button id="new-request-button" role="button">
+                            <!-- Create a custom button to handle the new request command -->
+                            <div class="new-request-button-content">
+                                <div class="button-div">
+                                    <img src="./assets/images/New_Request.svg" class="new-request-button-image"
+                                        alt="An image of a music note and a plus icon">
+                                    <p class="new-request-button-label">
+                                        Create a new request
+                                    </p>
+                                </div>
+                                <img src="./assets/images/chevron_right.svg" class="new-request-button-image"
+                                alt="An image of an arrow showing the right">
+                            </div>
+                        </button>
+                </article>
+            </section>
+        </section>
+        <!--Container to hold history of songs discovered which is search history of songs given in search wizard-->
+        <section id="history-screen"> 
+            <section class="introduction-section">
+                <article id="history-list" class="introduction-article">
+                    <h1>Here are your past inspirations</h1>
+                    <div id="history-end"></div>
+                </article>
+            </section>
+        </section>
+        <section id="query-screen">
+            <section class="introduction-section">
+                <article class="introduction-article">
+                    <h1 class="client-stimuli">In your own words...</h1>
+                    <p id="app-introduction-paragraph">How do you want music to impact you now?</p>
+                    <input id="current-user-wish" required />
+                    <p id="query-error">Please enter a valid query.</p>
+                </article>
+            </section>
+        </section>
+        <section id="tuning-screen">
+            <section class="introduction-section">
+                <article class="introduction-article">
+                    <h1 class="client-stimuli">Do you want to add more details?</h1>
+                    <h2 class="app-introduction-paragraph">Style</h2>
+                    <div class="chipset">
+                        <div class="chip-group" tabindex="-1">
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addAvantGardeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAvantGardeChip">Avant-Garde</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addBluesChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addBluesChip">Blues</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addChildrenChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addChildrenChip">Children's</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addClassicalChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addClassicalChip">Classical</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addComedyChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addComedyChip">Comedy</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addEasyListeningChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addEasyListeningChip">Easy Listening</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addElectronicChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addElectronicChip">Electronic</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addFolkChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addFolkChip">Folk</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addHolidayChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addHolidayChip">Holiday</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addInternationalChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addInternationalChip">International</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addJazzChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addJazzChip">Jazz</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addLatinChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addLatinChip">Latin</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addNewAgeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addNewAgeChip">New Age</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addPopRockChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addPopRockChip">Pop / Rock</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addR&BChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addR&BChip">R&B</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addRapChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addRapChip">Rap</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addReggaeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addReggaeChip">Reggae</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addReligiousChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addReligiousChip">Religious</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addStage&ScreenChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addStage&ScreenChip">Stage & Screen</span>
+                            </div>
+                            <div class="chip chip-checkbox music-style" tabindex="0" aria-labelledby="addVocalChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addVocalChip">Vocal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="app-introduction-paragraph">Mood</h2>
+                    <div class="chipset">
+                        <div class="chip-group" tabindex="-1">
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addAggressiveChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAggressiveChip">Aggressive</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addAtmosphericChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAtmosphericChip">Atmospheric</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addCalmChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCalmChip">Calm</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addCerebralChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCerebralChip">Cerebral</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addConfidentChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addConfidentChip">Confident</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addCuteChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCuteChip">Cute</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addCynicalChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCynicalChip">Cynical</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addDarkChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addDarkChip">Dark</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addDramaticChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addDramaticChip">Dramatic</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addDrivingChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addDrivingChip">Driving</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addFreewheelingChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addFreewheelingChip">Freewheeling</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addFunChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addFunChip">Fun</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addHeavyChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addHeavyChip">Heavy</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addOrganicChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addOrganicChip">Organic</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addPassionateChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addPassionateChip">Passionate</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addPositiveChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addPositiveChip">Positive</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addReflectiveChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addReflectiveChip">Reflective</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addSadChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSadChip">Sad</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addSeasonalChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSeasonalChip">Seasonal</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addSophisticatedChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSophisticatedChip">Sophisticated</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addSpritualChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSpritualChip">Spiritual</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addSweetChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSweetChip">Sweet</span>
+                            </div>
+                            <div class="chip chip-checkbox music-mood" tabindex="0" aria-labelledby="addTenseChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addTenseChip">Tense</span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="app-introduction-paragraph">Theme</h2>
+                    <div class="chipset">
+                        <div class="chip-group" tabindex="-1">
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addAdventureChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAdventureChip">Adventure</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addAngerChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAngerChip">Anger</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addAtTheBeachChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAtTheBeachChip">At the beach</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addAtTheOfficeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addAtTheOfficeChip">At the office</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addBackgroundChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addBackgroundChip">Background</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addBarbecueChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addBarbecueChip">Barbecue</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addCelebritiesChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCelebritiesChip">Celebrities</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addCityLifeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCityLifeChip">City Life</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addCountryLifeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCountryLifeChip">Country Life</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addCrimeChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCrimeChip">Crime</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addCultureChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addCultureChip">Culture</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addDrinkingChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addDrinkingChip">Drinking</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addEmpowermentChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addEmpowermentChip">Empowerment</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addFeelingGoodChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addFeelingGoodChip">Feeling Good</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addHappyHolidaysChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addHappyHolidaysChip">Happy Holidays</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addHeartacheChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addHeartacheChip">Heartache</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addLateNightChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addLateNightChip">Late Night</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addLifecycleChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addLifecycleChip">Lifecycle</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addLongWalkChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addLongWalkChip">Long Walk</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addMorningChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addMorningChip">Morning</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addNatureChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addNatureChip">Nature</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addPartyChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addPartyChip">Party</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addRelationshipsChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addRelationshipsChip">Relationships</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addRevolutionaryChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addRevolutionaryChip">Revolutionary</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addRomanceChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addRomanceChip">Romance</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addSeasonalChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSeasonalChip">Seasonal</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addSpiritualityChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSpiritualityChip">Spirituality</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addSweetDreamsChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addSweetDreamsChip">Sweet Dreams</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addTechnologyChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addTechnologyChip">Technology</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addTravelChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addTravelChip">Travel</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addTruthChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addTruthChip">Truth</span>
+                            </div>
+                            <div class="chip chip-checkbox music-theme" tabindex="0" aria-labelledby="addWeddingChip">
+                                <input type="checkbox" />
+                                <i class="material-icons chip-add-icon"></i>
+                                <span id="addWeddingChip">Wedding</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+        <section id="results-screen">
+            <section class="introduction-section">
+            <article class="introduction-article">
+                <h1 class="client-stimuli">Here is your new song, enjoy</h1>
+                <div id="result-card">
+                    <div id="result-image-area">
+                        <img src="./assets/images/searchResultImage.jpeg" id="search-result-image"
+                            alt="An image presenting a song">
+                    </div>
+                    <div id="result-content-area">
+                        <div id="result-text-area">
+                            <h2 id="search-result-title" class="app-introduction-paragraph"></h2>
+                            <br>
+                            <p id="search-result-artist"></p>
+                            <p id="search-result-album"></p>
+                        </div>
+                        <div id="result-logo-area">
+                            <img src="./assets/images/AppleMusic.svg" id="search-result-logo-apple-music"
+                            alt="An image presenting the Apple Music Logo">
+                            <img src="./assets/images/Spotify.svg" id="search-result-logo-spotify"
+                            alt="An image presenting the Spotify Logo">
+                        </div>
+                    </div>
+                </div>
+                <button id="new-request-results-button" role="button">
+                    <!-- Create a custom button to handle the new request command -->
+                    <div class="new-request-button-content">
+                        <div class="button-div">
+                            <img src="./assets/images/New_Request.svg" class="new-request-button-image"
+                                alt="An image of a music note and a plus icon">
+                            <p class="new-request-button-label">
+                                Create a new request
+                            </p>
+                        </div>
+                        <img src="./assets/images/chevron_right.svg" class="new-request-button-image"
+                        alt="An image of an arrow showing the right">
+                    </div>
+                </button>
+            </article>
+            </section>
+        </section>
+        <div id="stepper">
+            <div id="step1" class="step-on">
+            </div>
+            <div id="step2" class="step-off">
+            </div>
+            <div id="step3" class="step-off">
+            </div>
+        </div>
+        <div id="bottom-controls">
+                <button id="back-button" role="button">Back</button>
+                <button id="next-button" role="button">Next</button>
+        </div>
+        <!-- Footer for bottom of page-->
+        <footer id="page-footer">
+            <div id="copyright" class="content left-align is-flex-align-items-flex-end-mt-auto">
+                <p> 
+                    ©2023 Tune-Muse, Inc.
+                </p>
+            </div>
+        </footer>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="./assets/js/script.js"></script>
+    </body>
+=======
+>>>>>>> main
