@@ -53,6 +53,11 @@
     padding-bottom: 20px;
 }
 
+#tune-muse-logo-transparent {
+    padding-bottom: 20px;
+    opacity: 0%;
+}
+
 #page-header, #page-footer {
     background-color: var(--light-color);
     padding: 20px;
