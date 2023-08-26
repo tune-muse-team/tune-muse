@@ -59,7 +59,7 @@ function populateHistoryScreen() {
   document.getElementById("history-list").innerHTML = "";
   for (i = 0; i < discoveredSongHistory.length; i++) {
     newHistoryItem = document.createElement("div");
-    newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div>';
+    newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
 }
@@ -175,6 +175,7 @@ var pullSpotifyData = async () => {
 };
 */
 
+/*
 // TODO: Remove this function and replace with the one above when you get it to work
 function pullSpotifyData() {
   resultImage = "./assets/images/searchResultImage.jpeg";
@@ -190,6 +191,88 @@ function pullSpotifyData() {
   resultArtistEl.innerHTML = resultArtist;
   resultAlbumEl.innerHTML = resultAlbum;
   updateDiscoveredHistory();
+}
+*/
+
+async function pullSpotifyData() {
+  /* This contains the variables for the HTML Elements, and Variables for Musicean Name and Song Name*/
+  //var SearchButt = document.getElementById("Search"); //Search Button
+  //var SINGER = document.getElementById("SINGER"); //The text where you enter a singers name from the CHATGPT
+  //var SONG = document.getElementById("SONG"); //Where you enter the song from the CHATGPT
+  var spotiOUTPUT = document.getElementById("SPOTRESU"); //Just for the Output
+  //var MUSICEAN = SINGER.value;
+  //var SONGTITLE = SONG.value;
+  //SearchButt.addEventListener("click", searchSpotify);
+  // Reference https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow chagned buffer to btoa since it is running on web Javascript
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: {
+      'Authorization': 'Basic ' + (btoa(CLI_ID + ':' + SEC_ID).toString('base64'))
+    },
+    form: {
+      grant_type: 'client_credentials'
+    },
+    json: true
+  };
+  // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow from the reference request.post is not a function so was changed to fetch
+  fetch (authOptions, async function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var token = data.access_token;
+    }
+  });
+  // Don't worry about these Variables
+  var CLI_ID = "95dac2ec667f4f81b55f7a7ffe19070f";
+  var SEC_ID = "1ac2264050d94b0ca2b1367722c36ef1";
+  API_link = 'https://accounts.spotify.com/api/token';
+  // Added the search query "q"
+  Spotify_Search_Endpoint = 'https://api.spotify.com/v1/search?q=';
+
+  // This is where the song will be displayed 
+  // Reference: https://developer.spotify.com
+
+  function SpotifyPRINTSONG(track) {
+  spotiOUTPUT.innerHTML = '<DISPLAY_TRACK class="result-item">' +
+    '<h1>' + track.artists.map(function (artist) {
+    return artist.name;
+    }).join(", ") + '</h1>' +
+    '<h1>' + track.name + '</h1>' +
+    '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' +
+    '</DISPLAY_TRACK>';
+  }
+
+  // Function to handle the Spotify search
+  async function searchSpotify() {
+    var SONGTITLE = suggestedSong;
+    var KeyToken = await Token();
+    var track = await SONGSEARCH(suggestedArtist, SONGTITLE, KeyToken);
+    SpotifyPRINTSONG(track);
+  }
+    
+  async function Token() {
+    var response = await fetch(API_link, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Basic " + btoa(CLI_ID + ":" + SEC_ID)
+        },
+        body: "grant_type=client_credentials"
+    });
+
+    var data = await response.json();
+    return data.access_token;
+  }
+
+  var SONGSEARCH = async function (MUSICEAN, SONG, Token) {
+      var response = await fetch(Spotify_Search_Endpoint + MUSICEAN + "+track:" + SONG + "&type=track", {
+          headers: {
+            "Authorization": "Bearer " + Token
+          }
+      });
+      var search = await response.json();
+      return search.tracks.items[0]
+  }
+
+  searchSpotify();
 }
 
 // https://www.builder.io/blog/stream-ai-javascript
