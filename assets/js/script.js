@@ -24,7 +24,7 @@ var discoveredArtistHistory = [];
 var userQuery = "";
 var suggestedArtist = "";
 var suggestedSong = "";
-var chatgptApiQuery = 'Provide a song in the format "SONG NAME" by ARTIST NAME and no further comments; the user cue is : ';
+var chatgptApiQuery = 'Create a valid JSON array of one song title and the associated main artist ; the cue to select the song is : ';
 var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
 var AK1 = "sk-Sco";
 var AK2 = "ZaL";
@@ -215,7 +215,7 @@ async function pullSpotifyData() {
 
 // https://www.builder.io/blog/stream-ai-javascript
 
-var generateSongSuggestion = async () => {
+async function generateSongSuggestion() {
 
   try {
     
@@ -232,7 +232,12 @@ var generateSongSuggestion = async () => {
       }),
     });
     const data = await response.json();
-    var queryResponse = data.choices[0].message.content;
+    // var queryResponse = data.choices[0].message.content;
+    var queryResponse = JSON.parse(data.choices[0].message.content);
+    console.log(queryResponse);
+    suggestedSong = queryResponse[0].TITLE;
+    suggestedArtist = queryResponse[0].ARTIST;
+    /*
     var parsingSong = true;
     for (i = 1; i < queryResponse.length; i++) {
       if (parsingSong) {
@@ -246,7 +251,10 @@ var generateSongSuggestion = async () => {
         suggestedArtist += queryResponse[i];
       }
     }
+    */
     console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
+    console.log("Song:", suggestedSong);
+    console.log("Artist:", suggestedArtist);
   } catch (error) {
     console.error("Error:", error);
     console.log("Error occurred while generating.");
@@ -290,7 +298,14 @@ function submitSelectedAttributes() {
       chatgptApiQuery += ", ";
     }
   }
-  chatgptApiQuery += ".";
+  // TODO: Clear chips' checked status after parsing them
+  /*
+  var chipsToClear = document.querySelectorAll('active');
+  chipsToClear.forEach((element) => {
+    chipsToClear.classList.remove('active');
+  });
+  */
+  chatgptApiQuery += ". The format of the JSON is the following: TITLE = Song title, ARTIST = Main artist associated with the song.";
   console.log("USER QUERY:", chatgptApiQuery);
   generateSongSuggestion();
   displayResultsScreen();
@@ -329,11 +344,11 @@ $(document).on("click", ".chip button", function (e) {
 });
 
 $(document).on("click", ".chip.chip-checkbox", function () {
-  let $this = $(this);
-  let $option = $this.find("input");
+  var $this = $(this);
+  var $option = $this.find("input");
  
 if ($option.is(":radio")) {
-  let $others = $("input[name=" + $option.attr("name") + "]").not($option);
+  var $others = $("input[name=" + $option.attr("name") + "]").not($option);
   $others.prop("checked", false);
   $others.change();
 }
@@ -348,7 +363,7 @@ $(document).on("click", ".chip.toggle", function () {
 });
 
 $(document).on("change", ".chip.chip-checkbox input", function () {
-  let $chip = $(this).parent(".chip");
+  var $chip = $(this).parent(".chip");
   $chip.toggleClass("active", this.checked);
   $chip.attr("aria-checked", this.checked ? "true" : "false");
 });
