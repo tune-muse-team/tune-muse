@@ -55,18 +55,19 @@ function getLocalStorage() {
 
 // Switch between each different screen
 function populateHistoryScreen() {
-  var newHistoryItem;
+  historyDisplay = true;
   getLocalStorage();
   document.getElementById("history-list").innerHTML = "";
   for (i = 0; i < discoveredSongHistory.length; i++) {
     suggestedSong = discoveredSongHistory[i];
     suggestedArtist = discoveredArtistHistory[i];
     pullSpotifyData();
-    newHistoryItem = document.createElement("div");
-    newHistoryItem.innerHTML = ''
+    // newHistoryItem = document.createElement("div");
+    // newHistoryItem.innerHTML = ''
     // newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
-    document.getElementById("history-list").appendChild(newHistoryItem);
+    // document.getElementById("history-list").appendChild(newHistoryItem);
   }
+  historyDisplay = false;
 }
 
 function displayHomeScreen() {
@@ -231,26 +232,14 @@ async function pullSpotifyData() {
 
   // TODO: Remove the function below after integration with current HTML is done
   function SpotifyPRINTSONG(track) {
-  spotiOUTPUT.innerHTML = '<DISPLAY_TRACK class="result-item">' +
-    '<h1>' + track.artists.map(function (artist) {
-    return artist.name;
-    }).join(", ") + '</h1>' +
-    '<h1>' + track.name + '</h1>' +
-    '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' +
-    '</DISPLAY_TRACK>';
+  spotiOUTPUT.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
   }
 
   function historyPrintSong(track) {
     newHistoryItem = document.createElement("div");
     newHistoryItem.innerHTML = ''
     // newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
-    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' +
-    '<h1>' + track.artists.map(function (artist) {
-    return artist.name;
-    }).join(", ") + '</h1>' +
-    '<h1>' + track.name + '</h1>' +
-    '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' +
-    '</DISPLAY_TRACK>';
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
 
