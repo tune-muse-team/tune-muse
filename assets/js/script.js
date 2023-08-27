@@ -25,7 +25,8 @@ var discoveredArtistHistory = [];
 var userQuery = "";
 var suggestedArtist = "";
 var suggestedSong = "";
-var chatgptApiQuery = 'Create a valid JSON array of one song title and the associated main artist ; the cue to select the song is : ';
+// var chatgptApiQuery = 'Create a valid JSON array of no more than one song title and the associated main artist ; the cue to select the song is : ';
+var chatgptApiQuery;
 var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
 var AK1 = "sk-Sco";
 var AK2 = "ZaL";
@@ -254,11 +255,29 @@ async function generateSongSuggestion() {
       }),
     });
     const data = await response.json();
-    var queryResponse = JSON.parse(data.choices[0].message.content);
-    console.log(queryResponse);
+    console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
+    var queryResponse = data.choices[0].message.content;
+    // var queryResponse = JSON.parse(data.choices[0].message.content);
+    // console.log(queryResponse);
+    var parsingSong = true;
+    suggestedSong = "";
+    suggestedArtist = "";
+    for (i = 1; i < queryResponse.length; i++) {
+      if (parsingSong) {
+        if (queryResponse[i] !== '"') {
+          suggestedSong += queryResponse[i];
+        } else {
+          i += 4;
+          parsingSong = false;
+        }
+      } else {
+        suggestedArtist += queryResponse[i];
+      }
+    }
+    /*
     suggestedSong = queryResponse[0].TITLE;
     suggestedArtist = queryResponse[0].ARTIST;
-    console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
+    */
     console.log("Song:", suggestedSong);
     console.log("Artist:", suggestedArtist);
   } catch (error) {
@@ -270,11 +289,12 @@ async function generateSongSuggestion() {
 
 
 function submitQuery() {
+  chatgptApiQuery = 'Provide no more than one song in the format "SONG NAME" by ARTIST NAME ; the user cue is : ';
   userQuery = document.getElementById("current-user-wish").value;
   if (userQuery === "") {
     document.getElementById("query-error").style.display = "block";
   } else {
-    chatgptApiQuery += userQuery + " ; the song must match the following styles : ";
+    chatgptApiQuery += userQuery + "; the song must match the following styles : ";
     displayTuningScreen();
   }
   document.getElementById("current-user-wish").value = "";
@@ -288,7 +308,7 @@ function submitSelectedAttributes() {
       chatgptApiQuery += ", ";
     }
   }
-  chatgptApiQuery += " ; the song must match the following moods : ";
+  chatgptApiQuery += "; the song must match the following moods : ";
   var checkedMoods = document.getElementsByClassName("music-mood active");
   for (i = 0; i < checkedMoods.length; i++) {
     chatgptApiQuery += checkedMoods[i].children[2].innerHTML;
@@ -296,7 +316,7 @@ function submitSelectedAttributes() {
       chatgptApiQuery += ", ";
     }
   }
-  chatgptApiQuery += " ; the song must match the following themes : ";
+  chatgptApiQuery += "; the song must match the following themes : ";
   var checkedThemes = document.getElementsByClassName("music-theme active");
   for (i = 0; i < checkedThemes.length; i++) {
     chatgptApiQuery += checkedThemes[i].children[2].innerHTML;
@@ -311,7 +331,8 @@ function submitSelectedAttributes() {
     chipsToClear.classList.remove('active');
   });
   */
-  chatgptApiQuery += ". The format of the JSON is the following: TITLE = Song title, ARTIST = Main artist associated with the song.";
+  // chatgptApiQuery += ". The format of the JSON is the following: TITLE = Song title, ARTIST = Main artist associated with the song.";
+  chatgptApiQuery += ".";
   console.log("USER QUERY:", chatgptApiQuery);
   generateSongSuggestion();
   displayResultsScreen();
