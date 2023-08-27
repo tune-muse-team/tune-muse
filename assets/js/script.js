@@ -19,15 +19,44 @@ var stepperEl = document.getElementById("stepper");
 var bottomControlsEl = document.getElementById("bottom-controls");
 
 // Declare other global variables
-var discoveredHistory = [];
+var discoveredSongHistory = [];
+var discoveredArtistHistory = [];
+var userQuery = "";
+var suggestedArtist = "";
+var suggestedSong = "";
+var chatgptApiQuery = 'Provide a song in the format "SONG NAME" by ARTIST NAME and no further comments; the user cue is : ';
+var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
+var AK1 = "sk-Sco";
+var AK2 = "ZaL";
+var AK3 = "TQMx";
+var AK4 = "kjSb2";
+var AK5 = "CB9oNT3Blbk";
+var AK6 = "FJANRiYPnFM9i";
+var AK7 = "djpvjZsoj";
+var historyDisplay = false;
+
+function getLocalStorage() {
+  if (localStorage.hasOwnProperty("discovered-songs")) {
+    discoveredSongHistory = localStorage.getItem("discovered-songs").split(",");
+    discoveredArtistHistory = localStorage.getItem("discovered-artists").split(",");
+    console.log(discoveredSongHistory);
+    console.log(discoveredArtistHistory);
+  }
+}
 
 // Switch between each different screen
 function populateHistoryScreen() {
-  // TODO: Populate Home screen with discovered songs, adding a div for each song
-}
-
-function populateResultsScreen() {
-  // TODO: Populate Results screen with query result (add values to relevant elements)
+  historyDisplay = true;
+  getLocalStorage();
+  document.getElementById("history-list").innerHTML = "";
+  console.log("So far, so good!")
+  for (i = 0; i < discoveredSongHistory.length; i++) {
+    suggestedSong = discoveredSongHistory[i];
+    suggestedArtist = discoveredArtistHistory[i];
+    console.log("Pulling Spotify iframe for item", i);
+    pullSpotifyData();
+  }
+  historyDisplay = false;
 }
 
 function displayHomeScreen() {
@@ -52,8 +81,7 @@ function displayHistoryScreen() {
 }
 
 function goHome() {
-  if (localStorage.hasOwnProperty("discovered-history")) {
-    discoveredHistory = localStorage.getItem("discovered-history").split(",");
+  if (localStorage.hasOwnProperty("discovered-songs")) {
     displayHistoryScreen();
   } else {
     displayHomeScreen();
@@ -83,7 +111,6 @@ function displayTuningScreen() {
 }
 
 function displayResultsScreen() {
-  populateResultsScreen();
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
@@ -93,17 +120,183 @@ function displayResultsScreen() {
   bottomControlsEl.style.display = "none";
 }
 
+function updateDiscoveredHistory() {
+  getLocalStorage();
+  discoveredSongHistory.push(suggestedSong);
+  discoveredArtistHistory.push(suggestedArtist);
+  localStorage.setItem("discovered-songs", discoveredSongHistory);
+  localStorage.setItem("discovered-artists", discoveredArtistHistory);
+}
+
+async function pullSpotifyData() {
+  console.log("Inside pullSpotifyData")
+  var spotifyClientID = "95dac2ec667f4f81b55f7a7ffe19070f";
+  var spotifySecretID = "1ac2264050d94b0ca2b1367722c36ef1";
+  var apiLink = 'https://accounts.spotify.com/api/token';
+  var spotifySearchEndpoint = 'https://api.spotify.com/v1/search?q=';
+  var spotifyResultEl = document.getElementById("spotify-result");
+  var newHistoryItem;
+
+  // Reference https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow changed buffer to btoa since it is running on web Javascript
+ 
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: {
+      'Authorization': 'Basic ' + (btoa(spotifyClientID + ':' + spotifySecretID).toString('base64'))
+    },
+    form: {
+      grant_type: 'client_credentials'
+    },
+    json: true
+  };
+  // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow from the reference request.post is not a function so was changed to fetch
+  
+  fetch (authOptions, async function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var token = data.access_token;
+    }
+  });
+
+  // TODO: Remove the function below after integration with current HTML is done
+  function spotifyGenerateIframe(track) {
+    spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+  }
+
+  function historyGenerateIframe(track) {
+    console.log("Inside new function!");
+    newHistoryItem = document.createElement("div");
+    newHistoryItem.innerHTML = ''
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    document.getElementById("history-list").appendChild(newHistoryItem);
+    console.log("Leaving new function!");
+  }
+
+  // Function to handle the Spotify search
+  async function searchSpotify() {
+    var keyToken = await Token();
+    var track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
+    console
+    if (historyDisplay) {
+      historyGenerateIframe(track);
+    } else {
+      spotifyGenerateIframe(track);
+    }
+  }
+    
+  async function Token() {
+    var response = await fetch(apiLink, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Basic " + btoa(spotifyClientID + ":" + spotifySecretID)
+        },
+        body: "grant_type=client_credentials"
+    });
+
+    var data = await response.json();
+    return data.access_token;
+  }
+
+  var SONGSEARCH = async function (artistName, songName, generatedToken) {
+      var response = await fetch(spotifySearchEndpoint + artistName + "+track:" + songName + "&type=track", {
+          headers: {
+            "Authorization": "Bearer " + generatedToken
+          }
+      });
+      var search = await response.json();
+      return search.tracks.items[0]
+  }
+
+  searchSpotify();
+  if (!historyDisplay) {
+    updateDiscoveredHistory();
+  }
+}
+
+// https://www.builder.io/blog/stream-ai-javascript
+
+var generateSongSuggestion = async () => {
+
+  try {
+    
+    const response = await fetch(chatgptApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + AK1 + AK2 + AK3 + AK4 + AK5 + AK6 + AK7,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [{"role": "user", "content": chatgptApiQuery}],
+        temperature: 1
+      }),
+    });
+    const data = await response.json();
+    var queryResponse = data.choices[0].message.content;
+    var parsingSong = true;
+    for (i = 1; i < queryResponse.length; i++) {
+      if (parsingSong) {
+        if (queryResponse[i] !== '"') {
+          suggestedSong += queryResponse[i];
+        } else {
+          i += 4;
+          parsingSong = false;
+        }
+      } else {
+        suggestedArtist += queryResponse[i];
+      }
+    }
+    console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
+  } catch (error) {
+    console.error("Error:", error);
+    console.log("Error occurred while generating.");
+  }
+  pullSpotifyData();
+};
+
+
 function submitQuery() {
-  // TODO: Replace form element name with the one in HTML file
-  // TODO: Submit query to ChatGPt API
-  displayTuningScreen();
+  userQuery = document.getElementById("current-user-wish").value;
+  if (userQuery === "") {
+    document.getElementById("query-error").style.display = "block";
+  } else {
+    chatgptApiQuery += userQuery + " ; the song must match the following styles : ";
+    displayTuningScreen();
+  }
+  document.getElementById("current-user-wish").value = "";
 }
 
 function submitSelectedAttributes() {
-  // TODO: Figure out how attributes will be selected and submitted
+  var checkedStyles = document.getElementsByClassName("music-style active");
+  for (i = 0; i < checkedStyles.length; i++) {
+    chatgptApiQuery += checkedStyles[i].children[2].innerHTML;
+    if (i !== checkedStyles.length - 1) {
+      chatgptApiQuery += ", ";
+    }
+  }
+  chatgptApiQuery += " ; the song must match the following moods : ";
+  var checkedMoods = document.getElementsByClassName("music-mood active");
+  for (i = 0; i < checkedMoods.length; i++) {
+    chatgptApiQuery += checkedMoods[i].children[2].innerHTML;
+    if (i !== checkedMoods.length - 1) {
+      chatgptApiQuery += ", ";
+    }
+  }
+  chatgptApiQuery += " ; the song must match the following themes : ";
+  var checkedThemes = document.getElementsByClassName("music-theme active");
+  for (i = 0; i < checkedThemes.length; i++) {
+    chatgptApiQuery += checkedThemes[i].children[2].innerHTML;
+    if (i !== checkedThemes.length - 1) {
+      chatgptApiQuery += ", ";
+    }
+  }
+  chatgptApiQuery += ".";
+  console.log("USER QUERY:", chatgptApiQuery);
+  generateSongSuggestion();
   displayResultsScreen();
 }
 
+// Checks current active screen and directs user to the correct pages
 function backButtonCheck() {
   if (queryEl.style.display === "block") {
     displayHomeScreen();
@@ -158,21 +351,6 @@ $(document).on("change", ".chip.chip-checkbox input", function () {
   let $chip = $(this).parent(".chip");
   $chip.toggleClass("active", this.checked);
   $chip.attr("aria-checked", this.checked ? "true" : "false");
-});
-
-$("#addFilterBtn").click(function () {
-  let $txt = $("#addFilterTxt");
-  let filter = $txt.val();
-  $txt.val("");
-  $(`
-          <div class = "chip" tabindex = "-1">
-            <span>
-              ${filter}
-            </span>
-            <button title="Remove chip" aria-label="Remove chip" type = "button" onclick = "$(this).parent().remove()">
-              <i class = "material-icons">cancel</i>
-            </button>
-          </div>`).appendTo("#filterChipsContainer");
 });
 
 goHome();
