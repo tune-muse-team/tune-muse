@@ -90,6 +90,10 @@ button {
     max-width: 680px;
 }
 
+.result-item {
+    align-self: auto;
+}
+
 .introduction-section {
     display: flex;
     flex-direction: row;
