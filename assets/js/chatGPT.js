@@ -9,7 +9,7 @@ var AK5 = "CB9oNT3Blbk";
 var AK6 = "FJANRiYPnFM9i";
 var AK7 = "djpvjZsoj";
 
-var generate = async () => {
+async function generate() {
 
   try {
     
@@ -21,7 +21,7 @@ var generate = async () => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [{"role": "user", "content": "Provide a single song title and artist with no further comments ; the user cue is : I want to feel excited when listening to this song ; the song must match the following styles : jazz ; the song must match the following moods : dramatic ; the song must match the following themes : physical activity."}],
+        messages: [{"role": "user", "content": "Create a valid JSON array of one song title and the associated main artist ; the cue to select the song is : I want to feel excited when listening to this song ; the song must match the following styles : underground ; the song must match the following moods : dramatic ; the song must match the following themes : physical activity. The format of the JSON is the following: TITLE = Song title, ARTIST = Main artist associated with the song."}],
         temperature: 1
       }),
     });
