@@ -46,9 +46,7 @@ var spotifyCliSecId = "1afad6d3393e4a30b1e66be71094c41f";
 function getLocalStorage() {
   if (localStorage.hasOwnProperty("discovered-songs")) {
     discoveredSongHistory = localStorage.getItem("discovered-songs").split(",");
-    discoveredArtistHistory = localStorage.getItem("discovered-artists").split(",");
-    discoveredAlbumHistory = localStorage.getItem("discovered-albums").split(",");
-    discoveredCoverHistory = localStorage.getItem("discovered-covers").split(",");  
+
   }
 }
 
@@ -56,10 +54,16 @@ function getLocalStorage() {
 function populateHistoryScreen() {
   var newHistoryItem;
   getLocalStorage();
+  var songhistoryid =localStorage.getItem('track-id');
+  
+  //localStorage.setItem('songframe',document.getElementById(SPOTRESU));
+  //var historyframe = localStorage.getItem('songframe');
+ // console.log(historyframe)
   document.getElementById("history-list").innerHTML = "";
   for (i = 0; i < discoveredSongHistory.length; i++) {
     newHistoryItem = document.createElement("div");
-    newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
+    newHistoryItem.innerHTML =
+    '<iframe src="https://open.spotify.com/embed/track/' + songhistoryid + '" width=500 height=500 allow="encrypted-media">'
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
 }
@@ -232,6 +236,7 @@ async function pullSpotifyData() {
     '<h1>' + track.name + '</h1>' +
     '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' +
     '</DISPLAY_TRACK>';
+    localStorage.setItem('track-id',track.id)
   }
 
   // Function to handle the Spotify search
@@ -303,6 +308,7 @@ var generateSongSuggestion = async () => {
       }
     }
     console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
+
   } catch (error) {
     console.error("Error:", error);
     console.log("Error occurred while generating.");
