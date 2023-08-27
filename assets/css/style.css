@@ -106,6 +106,13 @@ button {
     justify-content: center;
 }
 
+#introduction-section-chips {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 1;
+    justify-content: center;
+}
+
 #app-introduction-paragraph {
     font-family: Roboto;
     font-size: 22px;

@@ -37,6 +37,14 @@ var AK6 = "FJANRiYPnFM9i";
 var AK7 = "djpvjZsoj";
 var historyDisplay = false;
 
+// Store a clone variable of the tuning-screen to reinitialize it easily
+
+var chipsScreenClone = "";
+
+$( document ).ready(function() {
+ chipsScreenClone = $("#introduction-section-chips").clone();
+});
+
 function getLocalStorage() {
   if (localStorage.hasOwnProperty("discovered-songs")) {
     discoveredSongHistory = localStorage.getItem("discovered-songs").split(",");
@@ -104,6 +112,7 @@ function displayQueryScreen() {
 }
 
 function displayTuningScreen() {
+
   document.getElementById("step2").className = "step-on";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
@@ -112,6 +121,7 @@ function displayTuningScreen() {
   resultsEl.style.display = "none";
   stepperEl.style.display = "flex";
   bottomControlsEl.style.display = "flex";
+  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
 }
 
 function displayResultsScreen() {
