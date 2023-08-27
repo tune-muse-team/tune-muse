@@ -41,14 +41,15 @@ var AK5 = "CB9oNT3Blbk";
 var AK6 = "FJANRiYPnFM9i";
 var AK7 = "djpvjZsoj";
 var spotifyCliId = "3726bd533631461898be92f9cc7dd798"; 
-var spotifyCliSecId = "1afad6d3393e4a30b1e66be71094c41f"; 
+var spotifyCliSecId = "1afad6d3393e4a30b1e66be71094c41f";
+var historyDisplay = false;
 
 function getLocalStorage() {
   if (localStorage.hasOwnProperty("discovered-songs")) {
     discoveredSongHistory = localStorage.getItem("discovered-songs").split(",");
     discoveredArtistHistory = localStorage.getItem("discovered-artists").split(",");
-    discoveredAlbumHistory = localStorage.getItem("discovered-albums").split(",");
-    discoveredCoverHistory = localStorage.getItem("discovered-covers").split(",");  
+    // discoveredAlbumHistory = localStorage.getItem("discovered-albums").split(",");
+    // discoveredCoverHistory = localStorage.getItem("discovered-covers").split(",");  
   }
 }
 
@@ -58,8 +59,12 @@ function populateHistoryScreen() {
   getLocalStorage();
   document.getElementById("history-list").innerHTML = "";
   for (i = 0; i < discoveredSongHistory.length; i++) {
+    suggestedSong = discoveredSongHistory[i];
+    suggestedArtist = discoveredArtistHistory[i];
+    pullSpotifyData();
     newHistoryItem = document.createElement("div");
-    newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
+    newHistoryItem.innerHTML = ''
+    // newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
 }
@@ -127,14 +132,14 @@ function displayResultsScreen() {
 
 function updateDiscoveredHistory() {
   getLocalStorage();
-  discoveredSongHistory.push(resultTitle);
-  discoveredArtistHistory.push(resultArtist);
-  discoveredAlbumHistory.push(resultAlbum);
-  discoveredCoverHistory.push(resultImage);
+  discoveredSongHistory.push(suggestedSong);
+  discoveredArtistHistory.push(suggestedArtist);
+  // discoveredAlbumHistory.push(resultAlbum);
+  // discoveredCoverHistory.push(resultImage);
   localStorage.setItem("discovered-songs", discoveredSongHistory);
   localStorage.setItem("discovered-artists", discoveredArtistHistory);
-  localStorage.setItem("discovered-albums", discoveredAlbumHistory);
-  localStorage.setItem("discovered-covers", discoveredCoverHistory);
+  // localStorage.setItem("discovered-albums", discoveredAlbumHistory);
+  // localStorage.setItem("discovered-covers", discoveredCoverHistory);
 }
 
 /*
@@ -202,6 +207,7 @@ async function pullSpotifyData() {
   Spotify_Search_Endpoint = 'https://api.spotify.com/v1/search?q=';
   // TODO: Remove the line below after integration with current HTML is complete
   var spotiOUTPUT = document.getElementById("SPOTRESU"); //Just for the Output
+  var newHistoryItem;
 
   // Reference https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow chagned buffer to btoa since it is running on web Javascript
  
@@ -234,12 +240,30 @@ async function pullSpotifyData() {
     '</DISPLAY_TRACK>';
   }
 
+  function historyPrintSong(track) {
+    newHistoryItem = document.createElement("div");
+    newHistoryItem.innerHTML = ''
+    // newHistoryItem.innerHTML = '<div class="history-card"> <div class="history-image-area"> <img src="' + discoveredCoverHistory[i] + '" class="history-item-image" alt="An image presenting a song"> </div> <div class="history-content-area"> <div class="history-text-area"> <h2 class="history-item-title" class="app-introduction-paragraph">' + discoveredSongHistory[i] + '</h2> <br> <p class="history-item-artist">' + discoveredArtistHistory[i] + '</p> <p class="history-item-album">' + discoveredAlbumHistory[i] + '</p> </div> <div class="history-logo-area"> <img src="./assets/images/AppleMusic.svg" class="history-item-logo-apple-music" alt="An image presenting the Apple Music Logo"> <img src="./assets/images/Spotify.svg" class="history-item-logo-spotify" alt="An image presenting the Spotify Logo"> </div> </div> </div> <br>';
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' +
+    '<h1>' + track.artists.map(function (artist) {
+    return artist.name;
+    }).join(", ") + '</h1>' +
+    '<h1>' + track.name + '</h1>' +
+    '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' +
+    '</DISPLAY_TRACK>';
+    document.getElementById("history-list").appendChild(newHistoryItem);
+  }
+
   // Function to handle the Spotify search
   async function searchSpotify() {
     var SONGTITLE = suggestedSong;
     var KeyToken = await Token();
     var track = await SONGSEARCH(suggestedArtist, SONGTITLE, KeyToken);
-    SpotifyPRINTSONG(track);
+    if (historyDisplay) {
+      historyPrintSong(track);
+    } else {
+      SpotifyPRINTSONG(track);
+    }
   }
     
   async function Token() {
@@ -267,6 +291,7 @@ async function pullSpotifyData() {
   }
 
   searchSpotify();
+  updateDiscoveredHistory();
 }
 
 // https://www.builder.io/blog/stream-ai-javascript
