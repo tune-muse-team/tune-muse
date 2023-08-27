@@ -31,7 +31,7 @@ var userQuery = "";
 var suggestedArtist = "";
 var suggestedSong = "";
 // var chatgptApiQuery = "Provide a single song name title and artist with no further comments ; the user cue is : ";
-var chatgptApiQuery = 'Provide a song in the format "SONG NAME" by ARTIST NAME ; the user cue is : ';
+var chatgptApiQuery = 'Provide a song in the format "SONG NAME" by ARTIST NAME and no further comments; the user cue is : ';
 var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
 var AK1 = "sk-Sco";
 var AK2 = "ZaL";
@@ -195,15 +195,16 @@ function pullSpotifyData() {
 */
 
 async function pullSpotifyData() {
-  /* This contains the variables for the HTML Elements, and Variables for Musicean Name and Song Name*/
-  //var SearchButt = document.getElementById("Search"); //Search Button
-  //var SINGER = document.getElementById("SINGER"); //The text where you enter a singers name from the CHATGPT
-  //var SONG = document.getElementById("SONG"); //Where you enter the song from the CHATGPT
+  // TODO: Clean up code, standardize function/variable names
+  var CLI_ID = "95dac2ec667f4f81b55f7a7ffe19070f";
+  var SEC_ID = "1ac2264050d94b0ca2b1367722c36ef1";
+  API_link = 'https://accounts.spotify.com/api/token';
+  Spotify_Search_Endpoint = 'https://api.spotify.com/v1/search?q=';
+  // TODO: Remove the line below after integration with current HTML is complete
   var spotiOUTPUT = document.getElementById("SPOTRESU"); //Just for the Output
-  //var MUSICEAN = SINGER.value;
-  //var SONGTITLE = SONG.value;
-  //SearchButt.addEventListener("click", searchSpotify);
+
   // Reference https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow chagned buffer to btoa since it is running on web Javascript
+ 
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: {
@@ -215,21 +216,14 @@ async function pullSpotifyData() {
     json: true
   };
   // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow from the reference request.post is not a function so was changed to fetch
+  
   fetch (authOptions, async function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var token = data.access_token;
     }
   });
-  // Don't worry about these Variables
-  var CLI_ID = "95dac2ec667f4f81b55f7a7ffe19070f";
-  var SEC_ID = "1ac2264050d94b0ca2b1367722c36ef1";
-  API_link = 'https://accounts.spotify.com/api/token';
-  // Added the search query "q"
-  Spotify_Search_Endpoint = 'https://api.spotify.com/v1/search?q=';
 
-  // This is where the song will be displayed 
-  // Reference: https://developer.spotify.com
-
+  // TODO: Remove the function below after integration with current HTML is done
   function SpotifyPRINTSONG(track) {
   spotiOUTPUT.innerHTML = '<DISPLAY_TRACK class="result-item">' +
     '<h1>' + track.artists.map(function (artist) {
