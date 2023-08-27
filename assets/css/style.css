@@ -148,7 +148,7 @@ h1 {
     color: var(--dark-color);
 }
 
-#new-request-button, #new-request-results-button {
+#new-request-button, #new-request-results-button, #new-request-history-button {
     display: flex;
     padding: 24px 0px 24px 0px;
     align-items: flex-start;

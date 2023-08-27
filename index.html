@@ -79,6 +79,20 @@
                     <h1>Welcome to Tune Muse</h1>
                     <p id="app-introduction-paragraph">Your past inspirations</p>
                     <div id="history-list"></div>
+                    <button id="new-request-history-button" role="button">
+                        <!-- Create a custom button to handle the new request command -->
+                        <div class="new-request-button-content">
+                            <div class="button-div">
+                                <img src="./assets/images/New_Request.svg" class="new-request-button-image"
+                                    alt="An image of a music note and a plus icon">
+                                <p class="new-request-button-label">
+                                    Create a new request
+                                </p>
+                            </div>
+                            <img src="./assets/images/chevron_right.svg" class="new-request-button-image"
+                            alt="An image of an arrow showing the right">
+                        </div>
+                    </button>
                 </article>
             </section>
         </section>
@@ -493,7 +507,6 @@
             <section class="introduction-section">
             <article class="introduction-article">
                 <h1 class="client-stimuli">Here is your new song, enjoy</h1>
-                <!-- Remove the div below after Spotify API is working -->
                 <div id="spotify-result"></div>
                 <button id="new-request-results-button" role="button">
                     <!-- Create a custom button to handle the new request command -->
