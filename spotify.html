@@ -43,7 +43,8 @@ fetch (authOptions, async function(error, response, body) {
             Spotify_Search_Endpoint = 'https://api.spotify.com/v1/search?q=';
 
     //This is whre the song will be displayed 
-    //Reference: https://developer.spotify.com
+    //Reference: https://developer.spotify.com -> embeded API
+            //https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
 
     function SpotifyPRINTSONG(track) {
     spotiOUTPUT.innerHTML = '<DISPLAY_TRACK class="result-item">' +
@@ -54,14 +55,15 @@ fetch (authOptions, async function(error, response, body) {
         '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' +
         '</DISPLAY_TRACK>';
     }
-// Function to handle the Spotify search
+            Combines all the functions together 
 async function searchSpotify() {
     var SONGTITLE = SONG.value;
      var KeyToken = await Token();
     var track = await SONGSEARCH(MUSICEAN, SONGTITLE, KeyToken);
     SpotifyPRINTSONG(track);
 }
-    
+
+ //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api 
 async function Token() {
     var response = await fetch(API_link, {
         method: "POST",
@@ -75,13 +77,14 @@ async function Token() {
     var data = await response.json();
     return data.access_token;
 }
-
+//Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 
 var SONGSEARCH = async function (MUSICEAN, SONG, Token) {
     var response = await fetch(Spotify_Search_Endpoint + MUSICEAN + "+track:" + SONG + "&type=track", {
         headers: {
             "Authorization": "Bearer " + Token
         }
     });
+    //This Part of the code selects the first song in the search results of the spotify search chaing [0], will  only select the 2nd, 3rd etc..
     var search = await response.json();
     return search.tracks.items[0]
 }
