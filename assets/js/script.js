@@ -62,6 +62,9 @@ function populateHistoryScreen() {
     newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + suggestedTrackId + '" width=340 allow="encrypted-media">' + '</DISPLAY_TRACK>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
+
+  document.getElementById("history-list").appendChild(newRequestHistoryButton);
+
   historyDisplay = false;
 }
 
