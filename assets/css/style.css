@@ -110,7 +110,7 @@ button {
 
 .introduction-article-history {
     font-family: "Roboto", sans-serif;
-    padding-top: 112px;
+    padding-top: 40px;
     padding-bottom: 40px;
     padding-right: 40px;
     padding-left: 40px;
@@ -576,4 +576,14 @@ h2 {
     'wght' 400,
     'GRAD' 0,
     'opsz' 24
+  }
+
+  @media screen and (max-width: 480px) {
+    #songs-discovered-button {
+        border: 0;
+    }
+
+    #discover-button {
+        border: 0;
+    }
   }
