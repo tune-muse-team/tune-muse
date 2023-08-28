@@ -128,7 +128,7 @@ button {
 #history-title-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     width: 100%;
 }
 
@@ -136,6 +136,21 @@ button {
     padding-top: 22px;
     display: flex;
     align-items: flex-start;
+}
+
+#history-title-left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 100%;
+    gap: 32px;
+}
+
+#history-title-left{
+
+    padding-top: 22px;
+    display: flex;
+    align-items: left;
 }
 
 .introduction-article-chips {
@@ -186,6 +201,8 @@ button {
     font-style: normal;
     font-weight: 600;
     line-height: 26px;
+    width:100%;
+    justify-content: left;
 }
 
 #query-error {
@@ -241,18 +258,19 @@ h1 {
 
 #new-request-history-button {
     display: flex;
-    padding: 24px 0px 24px 0px;
-    align-items: flex-start;
+        align-items: flex-start;
     align-self: center;
     background-color: var(--white-color);
     width: 100%;
-    max-width: 400px;
+    height: 167px;
+    max-width: 340px;
     outline: none;
     background: transparent;
     border-top: 1px solid transparent;
     border-right: 1px solid transparent;
     border-left: 1px solid transparent;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid transparent;
+    padding-top: 32px;
 }
 
 .new-request-button-content {
@@ -563,9 +581,9 @@ h2 {
 #history-list {
     display: flex;
     align-items: center;
-    align-content: flex-start;
+    align-content: top;
     gap: 10px;
-    align-self: center;
+    align-self: top;
     flex-wrap: wrap;
     overflow: auto;
 }
