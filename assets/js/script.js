@@ -194,7 +194,7 @@ async function pullSpotifyData() {
       var search = await response.json();
       return search.tracks.items[0]
   }
-https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
+//https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
   if (historyDisplay) {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
