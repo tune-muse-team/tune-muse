@@ -16,7 +16,7 @@ To use this web application, you can open the Chrome DevTools by pressing Comman
 
 ## Credits
 
-Eric Meyer (2023) reset.css (v2.0 | 20110126) http://meyerweb.com/eric/tools/css/reset/ 
+Eric Meyer (2023) reset.css (v2.0 | 20110126) (<http://meyerweb.com/eric/tools/css/reset/>)
 
 Orbis Communications Chip components https://codepen.io/team/Orbis/pen/OaXreJ 
 
