@@ -119,7 +119,6 @@ function displayTuningScreen() {
   resultsEl.style.display = "none";
   stepperEl.style.display = "flex";
   bottomControlsEl.style.display = "flex";
- 
 }
 
 function displayResultsScreen() {
@@ -205,7 +204,7 @@ async function pullSpotifyData() {
   } else {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
-    spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe id="result-iframe" src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe id="result-iframe" src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=200 allow="encrypted-media">' + '</DISPLAY_TRACK>';
   }
   suggestedTrackId = track.id;
   if (!historyDisplay) {
