@@ -286,13 +286,6 @@ html {
     display: none;
 }
 
-#introduction-section-chips {
-    display: flex;
-    flex-direction: row;
-    flex: 1 0 1;
-    justify-content: center;
-}
-
 .introduction-article-chips {
     font-family: "Roboto", sans-serif;
     padding: 40px;
@@ -303,7 +296,6 @@ html {
     align-items: center;
     gap: 32px;
     max-width: 100%;
-
 }
 
 .app-introduction-paragraph-chips {
