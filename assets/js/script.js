@@ -183,7 +183,7 @@ async function pullSpotifyData() {
     return data.access_token;
   }
 
-//Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 
+//Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 and //https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
   var SONGSEARCH = async function (artistName, songName, generatedToken) {
       var response = await fetch(spotifySearchEndpoint + artistName + "+track:" + songName + "&type=track", {
           headers: {
