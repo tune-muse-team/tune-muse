@@ -131,6 +131,7 @@ function updateDiscoveredHistory() {
   localStorage.setItem("discovered-trackids", discoveredTrackIdHistory);
 }
 
+//Start of the Spotify API implementation 
 async function pullSpotifyData() {
   var spotifyClientID = "95dac2ec667f4f81b55f7a7ffe19070f";
   var spotifySecretID = "1ac2264050d94b0ca2b1367722c36ef1";
@@ -159,6 +160,7 @@ async function pullSpotifyData() {
     }
   });
 
+ //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api 
   async function Token() {
     var response = await fetch(apiLink, {
         method: "POST",
@@ -173,16 +175,18 @@ async function pullSpotifyData() {
     return data.access_token;
   }
 
+//Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 
   var SONGSEARCH = async function (artistName, songName, generatedToken) {
       var response = await fetch(spotifySearchEndpoint + artistName + "+track:" + songName + "&type=track", {
           headers: {
             "Authorization": "Bearer " + generatedToken
           }
       });
+   //This code selects the first search result from spotify
       var search = await response.json();
       return search.tracks.items[0]
   }
-
+https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
   if (historyDisplay) {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
