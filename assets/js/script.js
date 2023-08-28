@@ -100,7 +100,7 @@ function goHome() {
 }
 
 function displayQueryScreen() {
-  wrapper.style.height = "calc( 100% - 272px )";
+  wrapper.style.height = "calc( 100% - 236px )";
   document.getElementById("step2").className = "step-off";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
@@ -112,7 +112,7 @@ function displayQueryScreen() {
 }
 
 function displayTuningScreen() {
-  wrapper.style.height = "calc( 100% - 272px )";
+  wrapper.style.height = "calc( 100% - 236px )";
   document.getElementById("step2").className = "step-on";
   homeEl.style.display = "none";
   historyEl.style.display = "none";

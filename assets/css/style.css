@@ -87,7 +87,6 @@ html {
     max-width: 680px;
 }
 
-<<<<<<< HEAD
 .introduction-article-history {
     font-family: "Roboto", sans-serif;
     padding-top: 40px;
@@ -175,8 +174,6 @@ html {
     justify-content: center;
 }
 
-=======
->>>>>>> b39e9272e19201ddb5c8970ba99a6937d7b2e267
 .app-introduction-paragraph {
     font-family: Roboto;
     font-size: 22px;
@@ -187,7 +184,7 @@ html {
     justify-content: left;
 }
 
-#new-request-button, #new-request-results-button {
+#new-request-button{
     display: flex;
     padding: 24px 0px 24px 0px;
     align-items: flex-start;
@@ -201,26 +198,40 @@ html {
     border-bottom: 1px solid #DDD;
 }
 
-<<<<<<< HEAD
 #new-request-history-button {
     display: flex;
-        align-items: flex-start;
+    align-items: flex-start;
     align-self: center;
     background-color: var(--white-color);
     width: 100%;
     height: 167px;
     max-width: 340px;
-    outline: none;
     background: transparent;
     border-top: 1px solid transparent;
     border-right: 1px solid transparent;
     border-left: 1px solid transparent;
     border-bottom: 1px solid transparent;
     padding-top: 32px;
+    outline: none;
+}
+#new-request-results-button{
+    display: flex;
+    align-items: flex-start;
+    align-self: center;
+    background-color: var(--white-color);
+    width: 100%;
+    height: 167px;
+    max-width: 340px;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    padding-top: 32px;
+    outline: none;
+
 }
 
-=======
->>>>>>> b39e9272e19201ddb5c8970ba99a6937d7b2e267
 .new-request-button-content {
     display: flex;
     justify-content: space-between;
@@ -340,22 +351,6 @@ html {
     align-self: center;
     flex-wrap: wrap;
     overflow: auto;
-}
-
-#new-request-history-button {
-    display: flex;
-    padding: 24px 0px 24px 0px;
-    align-items: flex-start;
-    align-self: center;
-    background-color: var(--white-color);
-    width: 100%;
-    max-width: 400px;
-    outline: none;
-    background: transparent;
-    border-top: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-bottom: 1px solid #DDD;
 }
 
 #query-screen {
@@ -582,7 +577,6 @@ html {
     justify-content: center;
 }
 
-<<<<<<< HEAD
 .history-item-image {
     width: 186.66px;
     height: 248.88px;
@@ -620,20 +614,6 @@ html {
     align-self: top;
     flex-wrap: wrap;
     overflow: auto;
-=======
-#introduction-article-results {
-    font-family: "Roboto", sans-serif;
-    padding: 40px;
-    text-align: center;
-    align-self: center;
-    justify-content: center;
-    object-fit: fill;
-    color: var(--dark-color);
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    max-width: 680px;
->>>>>>> b39e9272e19201ddb5c8970ba99a6937d7b2e267
 }
 
 #stepper {
