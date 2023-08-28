@@ -1,5 +1,3 @@
-// TODO: Figure out what information needs to be stored in localStorage (for info on discovered songs and info on the current request as the user goes back and forth between different screens)
-
 // Store button elements in variables
 var tuneMuseLogoButton = document.getElementById("tune-muse-logo");
 var songsDiscoveredButton = document.getElementById("songs-discovered-button");
@@ -20,12 +18,11 @@ var stepperEl = document.getElementById("stepper");
 var bottomControlsEl = document.getElementById("bottom-controls");
 
 // Declare other global variables
-var discoveredSongHistory = [];
-var discoveredArtistHistory = [];
+var discoveredTrackIdHistory = [];
 var userQuery = "";
 var suggestedArtist = "";
 var suggestedSong = "";
-// var chatgptApiQuery = 'Create a valid JSON array of no more than one song title and the associated main artist ; the cue to select the song is : ';
+var suggestedTrackId = "";
 var chatgptApiQuery;
 var chatgptApiUrl = "https://api.openai.com/v1/chat/completions";
 var AK1 = "sk-Sco";
@@ -36,13 +33,17 @@ var AK5 = "CB9oNT3Blbk";
 var AK6 = "FJANRiYPnFM9i";
 var AK7 = "djpvjZsoj";
 var historyDisplay = false;
+var historyTrackIds = [];
+
+// Store a clone variable of the tuning-screen to reinitialize it easily
+var chipsScreenClone = "";
+$( document ).ready(function() {
+ chipsScreenClone = $("#introduction-section-chips").clone();
+});
 
 function getLocalStorage() {
-  if (localStorage.hasOwnProperty("discovered-songs")) {
-    discoveredSongHistory = localStorage.getItem("discovered-songs").split(",");
-    discoveredArtistHistory = localStorage.getItem("discovered-artists").split(",");
-    console.log(discoveredSongHistory);
-    console.log(discoveredArtistHistory);
+  if (localStorage.hasOwnProperty("discovered-trackids")) {
+    discoveredTrackIdHistory = localStorage.getItem("discovered-trackids").split(",");
   }
 }
 
@@ -51,14 +52,12 @@ function populateHistoryScreen() {
   historyDisplay = true;
   getLocalStorage();
   document.getElementById("history-list").innerHTML = "";
-  console.log("Inside populateHistoryScreen -> historyDisplay =", historyDisplay);
-  for (i = 0; i < discoveredSongHistory.length; i++) {
-    suggestedSong = discoveredSongHistory[i];
-    suggestedArtist = discoveredArtistHistory[i];
-    console.log("Song to be added to history:", suggestedSong);
-    console.log("Artist to be added to history:", suggestedArtist);
-    console.log("Moving to generate Spotify iframe for item", i);
-    pullSpotifyData();
+  for (i = 0; i < discoveredTrackIdHistory.length; i++) {
+    suggestedTrackId = discoveredTrackIdHistory[i];
+    newHistoryItem = document.createElement("div");
+    newHistoryItem.innerHTML = ''
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + suggestedTrackId + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    document.getElementById("history-list").appendChild(newHistoryItem);
   }
   historyDisplay = false;
 }
@@ -85,7 +84,7 @@ function displayHistoryScreen() {
 }
 
 function goHome() {
-  if (localStorage.hasOwnProperty("discovered-songs")) {
+  if (localStorage.hasOwnProperty("discovered-trackids")) {
     displayHistoryScreen();
   } else {
     displayHomeScreen();
@@ -112,6 +111,7 @@ function displayTuningScreen() {
   resultsEl.style.display = "none";
   stepperEl.style.display = "flex";
   bottomControlsEl.style.display = "flex";
+  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
 }
 
 function displayResultsScreen() {
@@ -127,24 +127,21 @@ function displayResultsScreen() {
 
 function updateDiscoveredHistory() {
   getLocalStorage();
-  discoveredSongHistory.push(suggestedSong);
-  discoveredArtistHistory.push(suggestedArtist);
-  localStorage.setItem("discovered-songs", discoveredSongHistory);
-  localStorage.setItem("discovered-artists", discoveredArtistHistory);
+  discoveredTrackIdHistory.push(suggestedTrackId);
+  localStorage.setItem("discovered-trackids", discoveredTrackIdHistory);
 }
 
 async function pullSpotifyData() {
-  console.log("Inside pullSpotifyData -> historyDisplay =", historyDisplay);
   var spotifyClientID = "95dac2ec667f4f81b55f7a7ffe19070f";
   var spotifySecretID = "1ac2264050d94b0ca2b1367722c36ef1";
   var apiLink = 'https://accounts.spotify.com/api/token';
   var spotifySearchEndpoint = 'https://api.spotify.com/v1/search?q=';
   var spotifyResultEl = document.getElementById("spotify-result");
   var newHistoryItem;
+  var track;
 
-  // Reference https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow changed buffer to btoa since it is running on web Javascript
- 
-  var authOptions = {
+  // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow changed buffer to btoa since it is running on web Javascript
+   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: {
       'Authorization': 'Basic ' + (btoa(spotifyClientID + ':' + spotifySecretID).toString('base64'))
@@ -154,51 +151,14 @@ async function pullSpotifyData() {
     },
     json: true
   };
+
   // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow from the reference request.post is not a function so was changed to fetch
-  
-  fetch (authOptions, async function(error, response, body) {
+   fetch (authOptions, async function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var token = data.access_token;
     }
   });
 
-  // TODO: Remove the function below after integration with current HTML is done
-  function spotifyGenerateIframe(track) {
-    console.log("Inside spotifyGenerateIframe -> historyDisplay =", historyDisplay);
-    if (historyDisplay) {
-      console.log("Inside new function!");
-      newHistoryItem = document.createElement("div");
-      newHistoryItem.innerHTML = ''
-      newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
-      document.getElementById("history-list").appendChild(newHistoryItem);
-      console.log("Leaving new function!");
-    } else {
-      spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
-    }
-  }
-
-  function historyGenerateIframe(track) {
-    console.log("Inside new function!");
-    newHistoryItem = document.createElement("div");
-    newHistoryItem.innerHTML = ''
-    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
-    document.getElementById("history-list").appendChild(newHistoryItem);
-    console.log("Leaving new function!");
-  }
-
-  // Function to handle the Spotify search
-  async function searchSpotify() {
-    var keyToken = await Token();
-    var track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
-    spotifyGenerateIframe(track);
-  }
-
-  async function historySearchSpotify() {
-    var keyToken = await Token();
-    var track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
-    historyGenerateIframe(track);
-  }
-    
   async function Token() {
     var response = await fetch(apiLink, {
         method: "POST",
@@ -223,25 +183,27 @@ async function pullSpotifyData() {
       return search.tracks.items[0]
   }
 
-  console.log("About to enter searchSpotify -> historyDisplay =", historyDisplay);
   if (historyDisplay) {
-    historySearchSpotify();
+    var keyToken = await Token();
+    track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
+    newHistoryItem = document.createElement("div");
+    newHistoryItem.innerHTML = ''
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    document.getElementById("history-list").appendChild(newHistoryItem);
   } else {
-    searchSpotify();
+    var keyToken = await Token();
+    track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
+    spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
   }
-  // searchSpotify();
+  suggestedTrackId = track.id;
   if (!historyDisplay) {
-    console.log("About to update history...");
     updateDiscoveredHistory();
   }
 }
 
 // https://www.builder.io/blog/stream-ai-javascript
-
 async function generateSongSuggestion() {
-
   try {
-    
     const response = await fetch(chatgptApiUrl, {
       method: "POST",
       headers: {
@@ -257,8 +219,6 @@ async function generateSongSuggestion() {
     const data = await response.json();
     console.log("CHATGPT RESPONSE:", data.choices[0].message.content);
     var queryResponse = data.choices[0].message.content;
-    // var queryResponse = JSON.parse(data.choices[0].message.content);
-    // console.log(queryResponse);
     var parsingSong = true;
     suggestedSong = "";
     suggestedArtist = "";
@@ -274,10 +234,6 @@ async function generateSongSuggestion() {
         suggestedArtist += queryResponse[i];
       }
     }
-    /*
-    suggestedSong = queryResponse[0].TITLE;
-    suggestedArtist = queryResponse[0].ARTIST;
-    */
     console.log("Song:", suggestedSong);
     console.log("Artist:", suggestedArtist);
   } catch (error) {
@@ -286,7 +242,6 @@ async function generateSongSuggestion() {
   }
   pullSpotifyData();
 };
-
 
 function submitQuery() {
   chatgptApiQuery = 'Provide no more than one song in the format "SONG NAME" by ARTIST NAME ; the user cue is : ';
@@ -325,13 +280,6 @@ function submitSelectedAttributes() {
     }
   }
   // TODO: Clear chips' checked status after parsing them
-  /*
-  var chipsToClear = document.querySelectorAll('active');
-  chipsToClear.forEach((element) => {
-    chipsToClear.classList.remove('active');
-  });
-  */
-  // chatgptApiQuery += ". The format of the JSON is the following: TITLE = Song title, ARTIST = Main artist associated with the song.";
   chatgptApiQuery += ".";
   console.log("USER QUERY:", chatgptApiQuery);
   generateSongSuggestion();
@@ -382,7 +330,6 @@ if ($option.is(":radio")) {
   
   $option.prop("checked", !$this.hasClass("active"));
   $option.change();
-  console.log("true");
 });
 
 $(document).on("click", ".chip.toggle", function () {
