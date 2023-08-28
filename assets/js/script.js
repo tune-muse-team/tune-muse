@@ -140,7 +140,7 @@ function updateDiscoveredHistory() {
   localStorage.setItem("discovered-trackids", discoveredTrackIdHistory);
 }
 
-//Start of the Spotify API implementation 
+// Start of the Spotify API implementation 
 async function pullSpotifyData() {
   var spotifyClientID = "95dac2ec667f4f81b55f7a7ffe19070f";
   var spotifySecretID = "1ac2264050d94b0ca2b1367722c36ef1";
@@ -169,7 +169,7 @@ async function pullSpotifyData() {
     }
   });
 
- //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api and  https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
+ // Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api and  https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
   async function Token() {
     var response = await fetch(apiLink, {
         method: "POST",
@@ -183,7 +183,7 @@ async function pullSpotifyData() {
     return data.access_token;
   }
 
-//Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 and //https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
+// Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 and //https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
   var SONGSEARCH = async function (artistName, songName, generatedToken) {
       var response = await fetch(spotifySearchEndpoint + artistName + "+track:" + songName + "&type=track", {
           headers: {
@@ -194,7 +194,7 @@ async function pullSpotifyData() {
       var search = await response.json();
       return search.tracks.items[0]
   }
-//https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
+// https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
   if (historyDisplay) {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
@@ -205,7 +205,7 @@ async function pullSpotifyData() {
   } else {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
-    spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    spotifyResultEl.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe id="result-iframe" src="https://open.spotify.com/embed/track/' + track.id + '" width=500 height=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
   }
   suggestedTrackId = track.id;
   if (!historyDisplay) {
