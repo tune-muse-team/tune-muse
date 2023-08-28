@@ -28,6 +28,8 @@ html {
     overflow: auto;
 }
 
+
+/* Header selectors */
 #page-header{
     background-color: var(--light-color);
     padding: 20px;
@@ -55,11 +57,14 @@ html {
     'opsz' 24
 }
 
+/* Transparent logo element so menu buttons will be at center of screen */
 #tune-muse-transparent {
     padding-bottom: 20px;
     opacity: 0%;
 }
 
+
+/* Home screen selectors */
 #home-screens .page-body {
     display: none;
     max-width: 100%;
@@ -87,93 +92,6 @@ html {
     max-width: 680px;
 }
 
-.introduction-article-history {
-    font-family: "Roboto", sans-serif;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    padding-right: 40px;
-    padding-left: 40px;
-    text-align: center;
-    justify-content: center;
-    object-fit: fill;
-    color: var(--dark-color);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 32px;
-    width: 100%;
-}
-
-#history-title-container {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    width: 100%;
-}
-
-#history-title-centered-container {
-    padding-top: 22px;
-    display: flex;
-    align-items: flex-start;
-}
-
-#history-title-left-container {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    width: 100%;
-    gap: 32px;
-}
-
-#history-title-left{
-
-    padding-top: 22px;
-    display: flex;
-    align-items: left;
-}
-
-.introduction-article-chips {
-    font-family: "Roboto", sans-serif;
-    padding: 40px;
-    justify-content: center;
-    color: var(--dark-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    max-width: 100%;
-
-}
-
-.app-introduction-paragraph-chips {
-    font-family: Roboto;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 26px;
-    width:100%;
-    justify-content: left;
-}
-
-.result-item {
-    align-self: auto;
-}
-
-.introduction-section {
-    display: flex;
-    flex-direction: row;
-    flex: 1 0 1;
-    justify-content: center;
-
-}
-
-#introduction-section-chips {
-    display: flex;
-    flex-direction: row;
-    flex: 1 0 1;
-    justify-content: center;
-}
-
 .app-introduction-paragraph {
     font-family: Roboto;
     font-size: 22px;
@@ -196,40 +114,6 @@ html {
     border-right: 1px solid transparent;
     border-left: 1px solid transparent;
     border-bottom: 1px solid #DDD;
-}
-
-#new-request-history-button {
-    display: flex;
-    align-items: flex-start;
-    align-self: center;
-    background-color: var(--white-color);
-    width: 100%;
-    height: 167px;
-    max-width: 340px;
-    background: transparent;
-    border-top: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    padding-top: 32px;
-    outline: none;
-}
-#new-request-results-button{
-    display: flex;
-    align-items: flex-start;
-    align-self: center;
-    background-color: var(--white-color);
-    width: 100%;
-    height: 167px;
-    max-width: 340px;
-    background: transparent;
-    border-top: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    padding-top: 32px;
-    outline: none;
-
 }
 
 .new-request-button-content {
@@ -261,6 +145,8 @@ html {
     font-family: Roboto;
 }
 
+
+/* History screen selectors */
 #history-screen {
     display: none;
 }
@@ -353,6 +239,62 @@ html {
     overflow: auto;
 }
 
+.introduction-article-history {
+    font-family: "Roboto", sans-serif;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-right: 40px;
+    padding-left: 40px;
+    text-align: center;
+    justify-content: center;
+    object-fit: fill;
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+}
+
+#history-title-left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 100%;
+    gap: 32px;
+}
+
+#history-title-left {
+    padding-top: 22px;
+    display: flex;
+    align-items: left;
+}
+
+#new-request-history-button {
+    display: flex;
+    align-items: flex-start;
+    align-self: center;
+    background-color: var(--white-color);
+    width: 100%;
+    height: 167px;
+    max-width: 340px;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    padding-top: 32px;
+    outline: none;
+}
+
+.history-item-image {
+    width: 186.66px;
+    height: 248.88px;
+    flex-shrink: 0;
+}
+
+
+/* Query screen selectors */
 #query-screen {
     display: none;
 }
@@ -389,6 +331,8 @@ html {
     display: none;
 }
 
+
+/* Tuning screen selectors */
 #tuning-screen {
     display: none;
 }
@@ -436,9 +380,8 @@ html {
   
 }
 
-/* https://get.foundation/building-blocks/blocks/button-like.html END */
-
-.chip-group{
+/* Source: https://get.foundation/building-blocks/blocks/button-like.html */
+.chip-group {
     display:flex;
     flex-wrap:wrap;
 }
@@ -506,6 +449,37 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+#introduction-section-chips {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 1;
+    justify-content: center;
+}
+
+.introduction-article-chips {
+    font-family: "Roboto", sans-serif;
+    padding: 40px;
+    justify-content: center;
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    max-width: 100%;
+}
+
+.app-introduction-paragraph-chips {
+    font-family: Roboto;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 26px;
+    width:100%;
+    justify-content: left;
+}
+
+
+/* Results screen selectors */
 #results-screen {
     display: none;
 }
@@ -555,11 +529,32 @@ html {
     flex: 1 0 0;
 }
 
-#result-content-area{
+#result-content-area {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     align-self: stretch;
+}
+
+.result-item {
+    align-self: auto;
+}
+
+#new-request-results-button {
+    display: flex;
+    align-items: flex-start;
+    align-self: center;
+    background-color: var(--white-color);
+    width: 100%;
+    height: 167px;
+    max-width: 340px;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    padding-top: 32px;
+    outline: none;
 }
 
 #introduction-results-section {
@@ -569,45 +564,8 @@ html {
     justify-content: center;
 }
 
-.history-item-image {
-    width: 186.66px;
-    height: 248.88px;
-    flex-shrink: 0;
-}
 
-.history-text-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 4px;
-    align-self: stretch;
-}
-
-.history-logo-area {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    flex: 1 0 0;
-}
-
-.history-content-area {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: stretch;
-}
-
-#history-list {
-    display: flex;
-    align-items: center;
-    align-content: top;
-    gap: 10px;
-    align-self: top;
-    flex-wrap: wrap;
-    overflow: auto;
-}
-
+/* Stepper selectors */
 #stepper {
     display: none;
     align-items: flex-start;
@@ -634,6 +592,8 @@ html {
     background-color: #dddddd;
 }
 
+
+/* Back/Next button selectors */
 #bottom-controls {
     display: none;
     padding: 8px 48px 16px 48px;
@@ -674,6 +634,8 @@ html {
     border-bottom: 1px solid transparent;
 }
 
+
+/* Footer selectors */
 #page-footer {
     background-color: var(--light-color);
     padding: 20px;
@@ -688,6 +650,8 @@ html {
     color: var(--dark-color);
 }
 
+
+/* Other element selectors */
 button {
     font-family: Roboto;
     cursor: pointer;
@@ -720,6 +684,8 @@ h2 {
     line-height: normal;
 }
 
+
+/* Add reponsiveness to mobile */
 @media screen and (max-width: 480px) {
     #songs-discovered-button {
         border: 0;
