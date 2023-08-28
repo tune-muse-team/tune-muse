@@ -8,8 +8,11 @@ var nextButton = document.getElementById("next-button");
 var newRequestResultsButton = document.getElementById("new-request-results-button");
 var newRequestHistoryButton = document.getElementById("new-request-history-button");
 
+// Store elements for the wrapper
+var wrapper = document.getElementById("wrapper");
+
 // Store elements for each different screen
-var homeEl = document.getElementById("home-screen");
+var homeEl = document.getElementById("home-screens");
 var queryEl = document.getElementById("query-screen");
 var tuningEl = document.getElementById("tuning-screen");
 var resultsEl = document.getElementById("results-screen");
@@ -63,6 +66,7 @@ function populateHistoryScreen() {
 }
 
 function displayHomeScreen() {
+  wrapper.style.height = "calc( 100% - 160px )";
   homeEl.style.display = "block";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
@@ -73,6 +77,7 @@ function displayHomeScreen() {
 }
 
 function displayHistoryScreen() {
+  wrapper.style.height = "calc( 100% - 160px )";
   populateHistoryScreen();
   homeEl.style.display = "none";
   historyEl.style.display = "block";
@@ -92,6 +97,7 @@ function goHome() {
 }
 
 function displayQueryScreen() {
+  wrapper.style.height = "calc( 100% - 272px )";
   document.getElementById("step2").className = "step-off";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
@@ -103,18 +109,21 @@ function displayQueryScreen() {
 }
 
 function displayTuningScreen() {
+  wrapper.style.height = "calc( 100% - 272px )";
   document.getElementById("step2").className = "step-on";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
+  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
   tuningEl.style.display = "block";
   resultsEl.style.display = "none";
   stepperEl.style.display = "flex";
   bottomControlsEl.style.display = "flex";
-  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
+ 
 }
 
 function displayResultsScreen() {
+  wrapper.style.height = "calc( 100% - 160px )";
   document.getElementById("spotify-result").innerHTML = "";
   homeEl.style.display = "none";
   historyEl.style.display = "none";
@@ -188,7 +197,7 @@ async function pullSpotifyData() {
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
     newHistoryItem = document.createElement("div");
     newHistoryItem.innerHTML = ''
-    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=160 allow="encrypted-media">' + '</DISPLAY_TRACK>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   } else {
     var keyToken = await Token();
@@ -340,6 +349,33 @@ $(document).on("change", ".chip.chip-checkbox input", function () {
   var $chip = $(this).parent(".chip");
   $chip.toggleClass("active", this.checked);
   $chip.attr("aria-checked", this.checked ? "true" : "false");
+});
+
+$(document).ready(function() {
+
+
+  $(".navbar-burger").click(function() {
+
+
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+   
+  });
+
+  $("#songs-discovered-button").click(function() {
+
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+ 
+});
+
+$("#discover-button").click(function() {
+  
+  $(".navbar-burger").toggleClass("is-active");
+  $(".navbar-menu").toggleClass("is-active");
+
+});
+
 });
 
 goHome();
