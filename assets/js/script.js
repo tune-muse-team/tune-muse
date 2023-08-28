@@ -8,7 +8,7 @@ var nextButton = document.getElementById("next-button");
 var newRequestResultsButton = document.getElementById("new-request-results-button");
 var newRequestHistoryButton = document.getElementById("new-request-history-button");
 
-// Store elements for the wrapper
+// Store element for the wrapper
 var wrapper = document.getElementById("wrapper");
 
 // Store elements for each different screen
@@ -38,19 +38,20 @@ var AK7 = "djpvjZsoj";
 var historyDisplay = false;
 var historyTrackIds = [];
 
-// Store a clone variable of the tuning-screen to reinitialize it easily
+// Store a clone of the tuning-screen in a variable to easily reinitialize it
 var chipsScreenClone = "";
 $( document ).ready(function() {
  chipsScreenClone = $("#introduction-section-chips").clone();
 });
 
+// Pull history saved data from localStorage
 function getLocalStorage() {
   if (localStorage.hasOwnProperty("discovered-trackids")) {
     discoveredTrackIdHistory = localStorage.getItem("discovered-trackids").split(",");
   }
 }
 
-// Switch between each different screen
+// Add Spotify iFrame elements based on track IDs pulled from localHistory
 function populateHistoryScreen() {
   historyDisplay = true;
   getLocalStorage();
@@ -62,12 +63,10 @@ function populateHistoryScreen() {
     newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + suggestedTrackId + '" width=340 allow="encrypted-media">' + '</DISPLAY_TRACK>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
-
-  document.getElementById("history-list").appendChild(newRequestHistoryButton);
-
   historyDisplay = false;
 }
 
+// Switch between each different screen
 function displayHomeScreen() {
   wrapper.style.height = "calc( 100% - 160px )";
   homeEl.style.display = "block";
@@ -135,6 +134,7 @@ function displayResultsScreen() {
   bottomControlsEl.style.display = "none";
 }
 
+// Upload current result to localStorage history
 function updateDiscoveredHistory() {
   getLocalStorage();
   discoveredTrackIdHistory.push(suggestedTrackId);
@@ -151,7 +151,7 @@ async function pullSpotifyData() {
   var newHistoryItem;
   var track;
 
-  // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow changed buffer to btoa since it is running on web Javascript
+   // Source: https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow (changed buffer to btoa since it is running on web Javascript)
    var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: {
@@ -163,14 +163,14 @@ async function pullSpotifyData() {
     json: true
   };
 
-  // https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow from the reference request.post is not a function so was changed to fetch
+   // Source: https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow (from the reference request.post is not a function so was changed to fetch)
    fetch (authOptions, async function(error, response, body) {
     if (!error && response.statusCode === 200) {
       var token = data.access_token;
     }
   });
 
- // Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api and  https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
+  // Source: https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api and https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow (pulling token)
   async function Token() {
     var response = await fetch(apiLink, {
         method: "POST",
@@ -184,18 +184,18 @@ async function pullSpotifyData() {
     return data.access_token;
   }
 
-// Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 and //https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
+  // Source: https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 and https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
   var SONGSEARCH = async function (artistName, songName, generatedToken) {
       var response = await fetch(spotifySearchEndpoint + artistName + "+track:" + songName + "&type=track", {
           headers: {
             "Authorization": "Bearer " + generatedToken
           }
       });
-   //This code selects the first search result from spotify
+      // This code selects the first search result from spotify
       var search = await response.json();
       return search.tracks.items[0]
   }
-// https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
+  // Source: https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
   if (historyDisplay) {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
@@ -214,7 +214,7 @@ async function pullSpotifyData() {
   }
 }
 
-// https://www.builder.io/blog/stream-ai-javascript
+// Source: https://www.builder.io/blog/stream-ai-javascript
 async function generateSongSuggestion() {
   try {
     const response = await fetch(chatgptApiUrl, {
@@ -247,8 +247,6 @@ async function generateSongSuggestion() {
         suggestedArtist += queryResponse[i];
       }
     }
-    console.log("Song:", suggestedSong);
-    console.log("Artist:", suggestedArtist);
   } catch (error) {
     console.error("Error:", error);
     console.log("Error occurred while generating.");
@@ -256,6 +254,7 @@ async function generateSongSuggestion() {
   pullSpotifyData();
 };
 
+// Add user input to ChatGPT query string
 function submitQuery() {
   chatgptApiQuery = 'Provide no more than one song in the format "SONG NAME" by ARTIST NAME ; the user cue is : ';
   userQuery = document.getElementById("current-user-wish").value;
@@ -268,6 +267,7 @@ function submitQuery() {
   document.getElementById("current-user-wish").value = "";
 }
 
+// Add selected styles/moods/themes to ChatGPT query string
 function submitSelectedAttributes() {
   var checkedStyles = document.getElementsByClassName("music-style active");
   for (i = 0; i < checkedStyles.length; i++) {
@@ -316,8 +316,7 @@ function nextButtonCheck() {
   }
 }
 
-// https://codepen.io/team/Orbis/pen/OaXreJ 
-
+// Source: https://codepen.io/team/Orbis/pen/OaXreJ
 $(document).on(
   "keyup",
   ".chip.chip-checkbox, .chip.toggle, .chip.clickable",
