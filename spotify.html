@@ -63,7 +63,7 @@ async function searchSpotify() {
     SpotifyPRINTSONG(track);
 }
 
- //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api 
+ //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api and https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
 async function Token() {
     var response = await fetch(API_link, {
         method: "POST",
@@ -78,6 +78,7 @@ async function Token() {
     return data.access_token;
 }
 //Code inspired from https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3 
+ //https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
 var SONGSEARCH = async function (MUSICEAN, SONG, Token) {
     var response = await fetch(Spotify_Search_Endpoint + MUSICEAN + "+track:" + SONG + "&type=track", {
         headers: {
