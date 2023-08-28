@@ -117,7 +117,6 @@ function displayTuningScreen() {
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
-  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
   tuningEl.style.display = "block";
   resultsEl.style.display = "none";
   stepperEl.style.display = "flex";
@@ -201,7 +200,7 @@ async function pullSpotifyData() {
     var keyToken = await Token();
     track = await SONGSEARCH(suggestedArtist, suggestedSong, keyToken);
     newHistoryItem = document.createElement("div");
-    newHistoryItem.innerHTML = ''
+    newHistoryItem.innerHTML = '';
     newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + track.id + '" width=160 allow="encrypted-media">' + '</DISPLAY_TRACK>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   } else {
@@ -293,7 +292,7 @@ function submitSelectedAttributes() {
       chatgptApiQuery += ", ";
     }
   }
-  // TODO: Clear chips' checked status after parsing them
+  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
   chatgptApiQuery += ".";
   console.log("USER QUERY:", chatgptApiQuery);
   generateSongSuggestion();
