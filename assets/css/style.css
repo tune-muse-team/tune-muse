@@ -5,6 +5,18 @@
     --white-color: #fff;
 }
 
+body {
+
+    height: 100%;
+    width: 100%;
+    font-family: Roboto;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
 /* Use a wraper to create a sticky footer */
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/Layout_cookbook/Sticky_footers */
 
@@ -16,57 +28,7 @@
     overflow: auto;
 }
 
-#home-screens .page-body {
-    display: none;
-    max-width: 100%;
-    height: 100%;
-}
-
-#query-screen {
-    display: none;
-}
-
-#tuning-screen {
-    display: none;
-}
-
-#results-screen {
-    display: none;
-}
-
-#history-screen {
-    display: none;
-}
-
-#stepper {
-    display: none;
-    align-items: flex-start;
-    gap: 8px;
-    align-self: stretch;
-    height: 32px;
-}
-
-#bottom-controls {
-    display: none;
-    padding: 16px 48px;
-    justify-content: space-between;
-    align-items: center;
-    align-self: stretch;
-    height: 80px;
-}
-
-#tune-muse-transparent {
-    padding-bottom: 20px;
-    opacity: 0%;
-}
-
 #page-header{
-    background-color: var(--light-color);
-    padding: 20px;
-    height: 80px;
-}
-
-#page-footer {
     background-color: var(--light-color);
     padding: 20px;
     height: 80px;
@@ -77,21 +39,38 @@
     justify-content: center;
 }
 
+.navbar-menu{
+    max-width: 100%;
+}
+
 .button-icon {
     padding-right: 7px;
 }
 
-button {
-    font-family: Roboto;
-    cursor: pointer;
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
 }
 
-.button {
-    font-size: 13px;
+#tune-muse-transparent {
+    padding-bottom: 20px;
+    opacity: 0%;
 }
 
-.navbar-menu{
+#home-screens .page-body {
+    display: none;
     max-width: 100%;
+    height: 100%;
+}
+
+.introduction-section {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 1;
+    justify-content: center;
 }
 
 .introduction-article {
@@ -108,6 +87,7 @@ button {
     max-width: 680px;
 }
 
+<<<<<<< HEAD
 .introduction-article-history {
     font-family: "Roboto", sans-serif;
     padding-top: 40px;
@@ -195,6 +175,8 @@ button {
     justify-content: center;
 }
 
+=======
+>>>>>>> b39e9272e19201ddb5c8970ba99a6937d7b2e267
 .app-introduction-paragraph {
     font-family: Roboto;
     font-size: 22px;
@@ -204,43 +186,6 @@ button {
     width:100%;
     justify-content: left;
 }
-
-#query-error {
-    font-family: Roboto;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 26px;
-    display: none;
-}
-
-section {
-    height: 100%
-}
-
-body {
-
-    height: 100%;
-    width: 100%;
-    font-family: Roboto;
-}
-
-html {
-    height: 100%;
-    box-sizing: border-box;
-}
-
-/* Import and adjust CSS parameters from Figma developer mode */
-
-h1 {
-    font-family: Roboto;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 42px;
-    color: var(--dark-color);
-}
-
 
 #new-request-button, #new-request-results-button {
     display: flex;
@@ -256,6 +201,7 @@ h1 {
     border-bottom: 1px solid #DDD;
 }
 
+<<<<<<< HEAD
 #new-request-history-button {
     display: flex;
         align-items: flex-start;
@@ -273,6 +219,8 @@ h1 {
     padding-top: 32px;
 }
 
+=======
+>>>>>>> b39e9272e19201ddb5c8970ba99a6937d7b2e267
 .new-request-button-content {
     display: flex;
     justify-content: space-between;
@@ -302,6 +250,118 @@ h1 {
     font-family: Roboto;
 }
 
+#history-screen {
+    display: none;
+}
+
+.introduction-article-history {
+    font-family: "Roboto", sans-serif;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-right: 40px;
+    padding-left: 40px;
+    text-align: center;
+    justify-content: center;
+    object-fit: fill;
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+}
+
+#history-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#history-title-centered-container {
+    padding-top: 22px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.history-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+}
+
+.history-image-area {
+    border-radius: 16px;
+    display: flex;
+    width: 186.66px;
+    height: 186.66px;
+    max-width: 186.66px;
+    max-height: 186.66px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.history-item-image {
+    width: 186.66px;
+    height: 248.88px;
+    flex-shrink: 0;
+}
+
+.history-text-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+.history-logo-area {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    flex: 1 0 0;
+}
+
+.history-content-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+}
+
+#history-list {
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+    gap: 10px;
+    align-self: center;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+#new-request-history-button {
+    display: flex;
+    padding: 24px 0px 24px 0px;
+    align-items: flex-start;
+    align-self: center;
+    background-color: var(--white-color);
+    width: 100%;
+    max-width: 400px;
+    outline: none;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #DDD;
+}
+
+#query-screen {
+    display: none;
+}
+
 .client-stimuli {
     color: var(--dark-color);
     font-family: Roboto;
@@ -309,35 +369,6 @@ h1 {
     font-style: normal;
     font-weight: 600;
     line-height: 54px;
-}
-
-.client-stimuli-chips {
-    color: var(--dark-color);
-    font-family: Roboto;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 54px;
-    width:100%;
-    justify-content: left;
-}
-
-#step1 {
-    width: 60%;
-    height: 6px;
-}
-
-#step2, #step3 {
-    width: 20%;
-    height: 6px;
-}
-
-.step-on {
-    background-color: var(--dark-color);
-}
-
-.step-off {
-    background-color: #dddddd;
 }
 
 #current-user-wish {
@@ -354,44 +385,58 @@ h1 {
     background: var(--white-color);
 }
 
-#back-button {
-    color: var(--dark-color);
-    text-align: center;
+#query-error {
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 600;
-    line-height: 24px;
-    text-decoration-line: underline;
-    outline: none;
-    border-top: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-    background-color: var(--white-color);
+    line-height: 26px;
+    display: none;
 }
 
-#next-button {
+#tuning-screen {
+    display: none;
+}
+
+#introduction-section-chips {
     display: flex;
-    padding: 16px 32px 16px 32px;
-    align-items: flex-start;
-    border-radius: 8px;
-    background-color: var(--dark-color);
-    color: var(--white-color);
-    outline: none;
-    border-top: 1px solid transparent;
-    border-right: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-bottom: 1px solid transparent;
+    flex-direction: row;
+    flex: 1 0 1;
+    justify-content: center;
 }
 
-h2 {
+.introduction-article-chips {
+    font-family: "Roboto", sans-serif;
+    padding: 40px;
+    justify-content: center;
     color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    max-width: 100%;
+
+}
+
+.app-introduction-paragraph-chips {
     font-family: Roboto;
-    font-size: 24px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 600;
-    line-height: normal;
+    line-height: 26px;
+    width:100%;
+    justify-content: left;
+}
+
+.client-stimuli-chips {
+    color: var(--dark-color);
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 54px;
+    width:100%;
+    justify-content: left;
 }
 
 .chipset {
@@ -403,7 +448,7 @@ h2 {
     flex-wrap: wrap;
   
 }
-  
+
 /* https://get.foundation/building-blocks/blocks/button-like.html END */
 
 .chip-group{
@@ -474,18 +519,18 @@ h2 {
     -moz-osx-font-smoothing: grayscale;
 }
 
-#copyright {
-    padding-left: 10px;
-}
-
-#copyright p {
-    color: var(--dark-color);
+#results-screen {
+    display: none;
 }
 
 #result-card {
     display: flex;
     align-items: flex-start;
     gap: 48px;
+}
+
+.result-item {
+    align-self: auto;
 }
 
 #result-image-area {
@@ -530,25 +575,14 @@ h2 {
     align-self: stretch;
 }
 
-.history-card {
+#introduction-results-section {
     display: flex;
-    align-items: flex-start;
-    gap: 48px;
-}
-
-.history-image-area {
-    border-radius: 16px;
-    display: flex;
-    width: 186.66px;
-    height: 186.66px;
-    max-width: 186.66px;
-    max-height: 186.66px;
+    flex-direction: row;
+    flex: 1 0 1;
     justify-content: center;
-    align-items: center;
-    gap: 10px;
-    overflow: hidden;
 }
 
+<<<<<<< HEAD
 .history-item-image {
     width: 186.66px;
     height: 248.88px;
@@ -586,17 +620,135 @@ h2 {
     align-self: top;
     flex-wrap: wrap;
     overflow: auto;
+=======
+#introduction-article-results {
+    font-family: "Roboto", sans-serif;
+    padding: 40px;
+    text-align: center;
+    align-self: center;
+    justify-content: center;
+    object-fit: fill;
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 680px;
+>>>>>>> b39e9272e19201ddb5c8970ba99a6937d7b2e267
 }
 
-.material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-  }
+#stepper {
+    display: none;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    height: 16px;
+}
 
-  @media screen and (max-width: 480px) {
+#step1 {
+    width: 60%;
+    height: 6px;
+}
+
+#step2, #step3 {
+    width: 20%;
+    height: 6px;
+}
+
+.step-on {
+    background-color: var(--dark-color);
+}
+
+.step-off {
+    background-color: #dddddd;
+}
+
+#bottom-controls {
+    display: none;
+    padding: 8px 48px 16px 48px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    height: 60px;
+}
+
+#back-button {
+    text-align: center;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration-line: underline;
+    color: var(--dark-color);
+    outline: none;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    background-color: var(--white-color);
+}
+
+#next-button {
+    display: flex;
+    padding: 10px 16px 10px 16px;
+    align-items: flex-start;
+    border-radius: 8px;
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    outline: none;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+#page-footer {
+    background-color: var(--light-color);
+    padding: 20px;
+    height: 80px;
+}
+
+#copyright {
+    padding-left: 10px;
+}
+
+#copyright p {
+    color: var(--dark-color);
+}
+
+button {
+    font-family: Roboto;
+    cursor: pointer;
+}
+
+.button {
+    font-size: 13px;
+}
+
+section {
+    height: 100%
+}
+
+/* Import and adjust CSS parameters from Figma developer mode */
+h1 {
+    font-family: Roboto;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 42px;
+    color: var(--dark-color);
+}
+
+h2 {
+    color: var(--dark-color);
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+@media screen and (max-width: 480px) {
     #songs-discovered-button {
         border: 0;
     }
@@ -604,4 +756,8 @@ h2 {
     #discover-button {
         border: 0;
     }
-  }
+
+    #result-iframe {
+        max-width: 80%;
+    }
+}
