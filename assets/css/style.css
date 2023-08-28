@@ -464,7 +464,6 @@ html {
 }
 
 #introduction-results-section {
-    padding-top: 40px;
     display: flex;
     flex-direction: row;
     flex: 1 0 1;
