@@ -117,11 +117,12 @@ function displayTuningScreen() {
   homeEl.style.display = "none";
   historyEl.style.display = "none";
   queryEl.style.display = "none";
+  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
   tuningEl.style.display = "block";
   resultsEl.style.display = "none";
   stepperEl.style.display = "flex";
   bottomControlsEl.style.display = "flex";
-  $("#introduction-section-chips").replaceWith(chipsScreenClone.clone());
+ 
 }
 
 function displayResultsScreen() {
