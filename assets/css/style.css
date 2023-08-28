@@ -236,7 +236,6 @@ html {
     gap: 10px;
     align-self: center;
     flex-wrap: wrap;
-    overflow: auto;
 }
 
 .introduction-article-history {
@@ -558,12 +557,16 @@ html {
 }
 
 #introduction-results-section {
+    padding-top: 40px;
     display: flex;
     flex-direction: row;
     flex: 1 0 1;
     justify-content: center;
 }
 
+#spotify-result {
+    padding-top: 40px;
+}
 
 /* Stepper selectors */
 #stepper {
