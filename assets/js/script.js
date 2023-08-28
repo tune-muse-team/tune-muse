@@ -160,7 +160,7 @@ async function pullSpotifyData() {
     }
   });
 
- //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api 
+ //Retriving Token inspired from https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api and  https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
   async function Token() {
     var response = await fetch(apiLink, {
         method: "POST",
@@ -170,7 +170,6 @@ async function pullSpotifyData() {
         },
         body: "grant_type=client_credentials"
     });
-
     var data = await response.json();
     return data.access_token;
   }
