@@ -8,7 +8,7 @@ This application is the minimum viable product of a platform where human music c
 
 ## Installation
 
-N/A
+No installation necessary.
 
 ## Usage
 
@@ -16,27 +16,27 @@ To use this web application, you can open the Chrome DevTools by pressing Comman
 
 ## Credits
 
-Eric Meyer (2023) reset.css (v2.0 | 20110126) (<http://meyerweb.com/eric/tools/css/reset/>)
+Eric Meyer (2023) - reset.css (v2.0 | 20110126) (<http://meyerweb.com/eric/tools/css/reset/>);
 
-Orbis Communications Chip components https://codepen.io/team/Orbis/pen/OaXreJ 
+Orbis Communications - Chip components (<https://codepen.io/team/Orbis/pen/OaXreJ>);
 
-Builder.io ChatGPT API Implementation https://www.builder.io/blog/stream-ai-javascript
+Builder.io - ChatGPT API Implementation (<https://www.builder.io/blog/stream-ai-javascript>);
 
-Edward Apostol ChatGPT API API Key code obfuscation hint provided.
+Edward Apostol - ChatGPT API Key code obfuscation hint provided;
 
-Spotify Spotify API Implementation https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow
+Spotify - Spotify API Implementation (<https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow>)
 
-Spotify Spotify API iFrame Implementation https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api
+Spotify - Spotify API iFrame Implementation (<https://developer.spotify.com/documentation/embeds/tutorials/using-the-iframe-api>)
 
-Stack Overflow Spotify API Implementation https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api 
+Stack Overflow - Spotify API Implementation (<https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api>)
 
-Stack Overflow Spotify API Implementation https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3
+Stack Overflow - Spotify API Implementation (<https://stackoverflow.com/questions/45007790/post-request-to-spotify-api?rq=3>)
 
-Stack Overflow Spotify API Implementation https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api
+Stack Overflow - Spotify API Implementation (<https://stackoverflow.com/questions/70266495/first-time-doing-post-request-with-spotifys-api>)
 
 ## License
 
-Please refer to the LICENSE in the repo.
+Please refer to the LICENSE file in the repo.
 
 ## Link to the deployed application
 
