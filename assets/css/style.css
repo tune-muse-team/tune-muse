@@ -20,8 +20,6 @@
     display: none;
     max-width: 100%;
     height: 100%;
-  
-
 }
 
 #query-screen {
@@ -66,23 +64,18 @@
     background-color: var(--light-color);
     padding: 20px;
     height: 80px;
-
 }
 
 #page-footer {
     background-color: var(--light-color);
     padding: 20px;
     height: 80px;
-
-
 }
 
 .navbar-start {
     flex-grow: 1;
     justify-content: center;
 }
-
-
 
 .button-icon {
     padding-right: 7px;
@@ -98,9 +91,7 @@ button {
 }
 
 .navbar-menu{
-
     max-width: 100%;
-
 }
 
 .introduction-article {
@@ -132,6 +123,19 @@ button {
     align-items: flex-start;
     gap: 32px;
     width: 100%;
+}
+
+#history-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#history-title-centered-container {
+    padding-top: 22px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .introduction-article-chips {
@@ -184,8 +188,6 @@ button {
     line-height: 26px;
 }
 
-
-
 #query-error {
     font-family: Roboto;
     font-size: 15px;
@@ -223,12 +225,28 @@ h1 {
 }
 
 
-#new-request-button, #new-request-results-button, #new-request-history-button {
+#new-request-button, #new-request-results-button {
     display: flex;
     padding: 24px 0px 24px 0px;
     align-items: flex-start;
     background-color: var(--white-color);
     width: 100%;
+    outline: none;
+    background: transparent;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #DDD;
+}
+
+#new-request-history-button {
+    display: flex;
+    padding: 24px 0px 24px 0px;
+    align-items: flex-start;
+    align-self: center;
+    background-color: var(--white-color);
+    width: 100%;
+    max-width: 400px;
     outline: none;
     background: transparent;
     border-top: 1px solid transparent;
@@ -543,12 +561,11 @@ h2 {
 }
 
 #history-list {
-
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     align-content: flex-start;
     gap: 10px;
-    align-self: stretch;
+    align-self: center;
     flex-wrap: wrap;
     overflow: auto;
 }

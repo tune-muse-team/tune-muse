@@ -59,7 +59,7 @@ function populateHistoryScreen() {
     suggestedTrackId = discoveredTrackIdHistory[i];
     newHistoryItem = document.createElement("div");
     newHistoryItem.innerHTML = ''
-    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + suggestedTrackId + '" width=500 allow="encrypted-media">' + '</DISPLAY_TRACK>';
+    newHistoryItem.innerHTML = '<DISPLAY_TRACK class="result-item">' + '<iframe src="https://open.spotify.com/embed/track/' + suggestedTrackId + '" width=340 allow="encrypted-media">' + '</DISPLAY_TRACK>';
     document.getElementById("history-list").appendChild(newHistoryItem);
   }
   historyDisplay = false;
