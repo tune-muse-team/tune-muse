@@ -40,7 +40,7 @@ Please refer to the LICENSE file in the repo.
 
 ## Link to the deployed application
 
-[Try it now](https://tune-muse-team.github.io/tune-muse/)
+[Try it now](https://tune-muse-team.github.io/tunemuse/)
 
 ## Preview of the deployed application
 
